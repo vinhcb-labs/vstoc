@@ -28,6 +28,14 @@
     .btn{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
     .btn.secondary{background:transparent;color:var(--ink);border-color:var(--muted)}
 
+  
+    /* Hướng dẫn thanh toán */
+    .pay-guide{margin-top:16px;border-left:4px solid var(--accent);}
+    .pay-guide h3{margin:0 0 8px 0}
+    .pay-guide ol{margin:8px 0 0 22px}
+    .pay-guide li{margin:6px 0}
+    .tip{border:1px dashed var(--muted);border-radius:10px;padding:10px;margin-top:10px}
+
   </style>
 </head>
 <body>
@@ -87,7 +95,19 @@
       </script>
       <div class="mini muted">* Chỉ hiển thị khi site chạy trên domain đã được AdSense phê duyệt.</div>
     </section>
-  </div>
+  
+    <section class="card pay-guide">
+      <h3>Hướng dẫn thanh toán</h3>
+      <ol class="mini">
+        <li>Chọn <b>gói</b> và nhập <b>email nhận key</b> (bên trái).</li>
+        <li>Bấm <b>Tạo đơn & Hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
+        <li>Mở <b>MoMo</b> hoặc <b>app ngân hàng (VietQR)</b> → <b>Quét QR</b> trên trang.</li>
+        <li><b>Copy số tiền</b> và <b>Copy nội dung</b> rồi dán vào app thanh toán. <u>Không sửa ký tự</u> trong nội dung.</li>
+        <li>Thanh toán xong, bấm <b>Đã thanh toán</b> để gửi email xác nhận (đã có sẵn mã đơn).</li>
+      </ol>
+      <div class="mini tip">Mẹo: nếu lỡ nhập sai số tiền hoặc nội dung, trả lời email xác nhận kèm <b>mã đơn</b> và <b>ảnh giao dịch</b> để đối soát nhanh.</div>
+    </section>
+</div>
 
   <script>
     (function(){
