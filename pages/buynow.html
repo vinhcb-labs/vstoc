@@ -88,12 +88,12 @@
       const orderInfo = document.getElementById('orderInfo');
 
       // Discord webhook & EmailJS config (public only)
-      const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp";
+      const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp';
       const DISCORD_USERNAME = 'VSTOC Bot';
       const DISCORD_AVATAR = '';
 
-      const EMAILJS_PUBLIC_KEY   = "a2UFiSwx-1WVOyt2a";
-      const EMAILJS_SERVICE_ID   = 'REPLACE_EMAILJS_SERVICE_ID';
+      const EMAILJS_PUBLIC_KEY   = 'a2UFiSwx-1WVOyt2a';
+      const EMAILJS_SERVICE_ID   = 'vstoc';
       const EMAILJS_TEMPLATE_ID  = 'template_uxp1tzi';
 
       try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
@@ -131,9 +131,9 @@
         const payload = {
           username: DISCORD_USERNAME || undefined,
           avatar_url: DISCORD_AVATAR || undefined,
-          content: sharedText || null,
+          content: null,
           embeds: [{
-            title, color: 3066993, description: sharedText || undefined,
+            title, color: 3066993, 
             fields: [
               { name: 'Mã đơn', value: orderId, inline: true },
               { name: 'Gói', value: planName, inline: true },

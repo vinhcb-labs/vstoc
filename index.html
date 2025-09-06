@@ -1,1 +1,48 @@
-<!doctype html><meta charset='utf-8'><link rel='stylesheet' href='assets/style.css'><script src='assets/app.js'></script>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="./">
+  <title>VSTOC</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
+          <rect x="3.5" y="6.5" width="17" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M2 9h20M2 15h20" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+        </svg>
+        <div>
+          <div class="title">VSTOC</div>
+          <div class="badge"></div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <nav class="tabs" aria-label="Tabs" role="tablist">
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#home" data-tab="home" aria-selected="true">HOME</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#features" data-tab="features">FEATURES</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#buynow" data-tab="buynow">BUYNOW</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#download" data-tab="download">DOWNLOAD</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#support" data-tab="support">SUPPORT</a>
+        </nav>
+        <button id="themeToggle" class="theme-toggle" title="Toggle theme">🌗</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="panel" class="panel" aria-live="polite">
+        <iframe id="panelFrame" src="pages/home.html" style="width:100%;height:60vh;border:0;display:block;"></iframe>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Design By VINHCB. · <a href="#privacy" data-tab="privacy" class="footer-link">Privacy</a> · <a href="#terms" data-tab="terms" class="footer-link">Terms</a> · <a href="#contact" data-tab="contact" class="footer-link">Contact</a></div>
+    </footer>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
