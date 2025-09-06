@@ -120,8 +120,33 @@
       const orderInfo = document.getElementById('orderInfo');
       // === Discord Webhook config ===
       // TODO: Dán webhook Discord vào đây (ví dụ: https://discord.com/api/webhooks/xxx/yyy )
-      const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp';
+      const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/REPLACE_ME';
       const DISCORD_USERNAME = 'VSTOC Bot';
+      // === EmailJS config (send email to buyer) ===
+      // Đăng ký tại https://www.emailjs.com/ → tạo Service, Template và Public Key
+      const EMAILJS_PUBLIC_KEY   = 'REPLACE_EMAILJS_PUBLIC_KEY';
+      const EMAILJS_SERVICE_ID   = 'REPLACE_EMAILJS_SERVICE_ID';
+      const EMAILJS_TEMPLATE_ID  = 'REPLACE_EMAILJS_TEMPLATE_ID';
+
+      async function sendEmailToBuyer({orderId, planName, amountText, buyerEmail}){
+        if (!buyerEmail) throw new Error('Buyer email trống');
+        if (!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY.includes('REPLACE_EMAILJS')){
+          throw new Error('EmailJS chưa cấu hình');
+        }
+        // init (idempotent)
+        try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
+        const tpl = {
+          order_id: orderId,
+          plan_name: planName,
+          amount_text: amountText,
+          buyer_email: buyerEmail
+        };
+        const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
+        if (res.status !== 200){
+          throw new Error('EmailJS status ' + res.status);
+        }
+      }
+
       const DISCORD_AVATAR = '';
 
       async function sendDiscord({orderId, planName, amountText, buyerEmail}){
@@ -232,5 +257,6 @@
 
     })();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </body>
 </html>
