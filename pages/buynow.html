@@ -70,8 +70,10 @@
             <div class="mini" style="margin-top:8px"><b>Nội dung chuyển khoản:</b></div>
             <div class="row"><input id="noteField" class="note-field" readonly value="—"><button class="btn" id="copyNote">Copy nội dung</button></div>
             <div class="row" style="margin-top:8px">
-              <a class="btn" id="paidBtn" href="mailto:vinhcb.path@gmail.com?subject=VSTOC%20-%20Confirm%20Payment&body=Ch%C3%A0o%20b%E1%BA%A1n%2C%20t%C3%B4i%20%C4%91%C3%A3%20thanh%20to%C3%A1n%20MoMo%20cho%20g%C3%B3i%20VSTOC.%0AEmail%20nh%E1%BA%ADn%20key%3A%20...%0AM%C3%A3%20%C4%91%C6%A1n%3A%20...%0AGi%C3%A1%20tr%E1%BB%8B%3A%20..." target="_blank" rel="noopener">Đã thanh toán</a>
+              <button class="btn" id="paidBtn" type="button">Đã thanh toán</button>
+              <a class="btn secondary" id="paidMailto" style="display:none" href="mailto:vinhcb.path@gmail.com?subject=VSTOC%20-%20Confirm%20Payment&body=Ch%C3%A0o%20b%E1%BA%A1n%2C%20t%C3%B4i%20%C4%91%C3%A3%20thanh%20to%C3%A1n%20MoMo%20cho%20g%C3%B3i%20VSTOC.%0AEmail%20nh%E1%BA%ADn%20key%3A%20...%0AM%C3%A3%20%C4%91%C6%A1n%3A%20...%0AGi%C3%A1%20tr%E1%BB%8B%3A%20..." target="_blank" rel="noopener">Đã thanh toán</a>
             </div>
+            <div id="paidStatus" class="mini" style="margin-top:8px"></div>
             <div class="mini muted" style="margin-top:8px">* Khi có tài khoản Merchant, thay QR tĩnh bằng <i>Payment Link</i> để xác nhận tự động.</div>
           </div>
         </div>
@@ -116,6 +118,43 @@
       const amountField = document.getElementById('amountField');
       const noteField = document.getElementById('noteField');
       const orderInfo = document.getElementById('orderInfo');
+      // === Discord Webhook config ===
+      // TODO: Dán webhook Discord vào đây (ví dụ: https://discord.com/api/webhooks/xxx/yyy )
+      const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp';
+      const DISCORD_USERNAME = 'VSTOC Bot';
+      const DISCORD_AVATAR = '';
+
+      async function sendDiscord({orderId, planName, amountText, buyerEmail}){
+        if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK.includes('REPLACE_ME')) {
+          throw new Error('Webhook chưa được cấu hình');
+        }
+        const payload = {
+          username: DISCORD_USERNAME || undefined,
+          avatar_url: DISCORD_AVATAR || undefined,
+          content: null,
+          embeds: [{
+            title: 'Xác nhận thanh toán VSTOC',
+            color: 3066993,
+            fields: [
+              { name: 'Mã đơn', value: orderId, inline: true },
+              { name: 'Gói', value: planName, inline: true },
+              { name: 'Số tiền', value: amountText, inline: true },
+              { name: 'Email nhận key', value: buyerEmail || '(không nhập)', inline: false }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        };
+        const res = await fetch(DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+          const t = await res.text();
+          throw new Error('Discord trả về lỗi: ' + res.status + ' ' + t);
+        }
+      }
+
 
       function formatVND(v){
         try{ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }
@@ -138,7 +177,7 @@
         amountField.value = formatVND(v);
         noteField.value = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
         orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
-        const mail = document.getElementById('paidBtn');
+        const mail = document.getElementById('paidMailto');
         const subject = encodeURIComponent('VSTOC - Confirm Payment');
         const body = encodeURIComponent(
           `Chào bạn, tôi đã thanh toán MoMo cho gói ${planName}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${formatVND(v)}`
@@ -160,6 +199,37 @@
 
       email.addEventListener('input', sync);
       plan.addEventListener('change', sync);
+
+
+      const paidBtn = document.getElementById('paidBtn');
+      const paidMailto = document.getElementById('paidMailto');
+      const paidStatus = document.getElementById('paidStatus');
+
+      paidBtn.onclick = async ()=>{
+        try{
+          paidStatus.textContent = 'Đang gửi xác nhận lên Discord...';
+          paidBtn.disabled = true;
+          await sendDiscord({
+            orderId: curOrderId,
+            planName: plan.options[plan.selectedIndex]?.dataset?.name || 'Plan',
+            amountText: amountField.value,
+            buyerEmail: email.value || ''
+          });
+          paidStatus.textContent = 'Đã gửi thông báo lên Discord ✅. Cảm ơn bạn!';
+        }catch(err){
+          console.warn(err);
+          paidStatus.textContent = 'Không gửi được Discord. Mở email xác nhận thay thế...';
+          // Fallback: mở mailto (ẩn) cho người dùng gửi tay
+          if (paidMailto && paidMailto.href && paidMailto.href.startsWith('mailto:')){
+            paidMailto.click();
+          } else {
+            alert('Vui lòng gửi email xác nhận thủ công giúp mình.');
+          }
+        }finally{
+          paidBtn.disabled = false;
+        }
+      };
+
     })();
   </script>
 </body>
