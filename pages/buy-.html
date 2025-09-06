@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VSTOC — Buy Now</title>
+  <title>VSTOC — Buy</title>
   <link rel="stylesheet" href="../assets/style.css">
   <style>
     .wrap{max-width:1100px;margin:0 auto;padding:18px}
@@ -27,8 +27,8 @@
 </head>
 <body>
   <div class="wrap">
-    <h2>BUY NOW</h2>
-    <p class="mini">Thanh toán qua VietQR ngân hàng.</p>
+    <h2>BUY</h2>
+    <p class="mini">Thanh toán qua MoMo bằng mã QR.</p>
 
     <div class="grid">
       <article class="card">
@@ -48,10 +48,9 @@
       </article>
 
       <article class="card">
-        <h3>Thanh toán qua VietQR (Ngân hàng)</h3>
+        <h3>Thanh toán qua MoMo (QR)</h3>
         <div class="qrBox">
-              <p class="mini" style="margin:0"><b>QR cập nhật theo đơn</b> (VietQR ngân hàng). Chuyển đúng <i>Số tiền</i> & <i>Nội dung CK</i>.</p>
-          <img id="qrImg" class="qr" src="" alt="VietQR">
+          <img class="qr" src="../assets/momo-qr.png" alt="MoMo QR">
           <div>
             <div class="mini"><b>Số tiền</b></div>
             <div class="row"><input id="amountField" class="note-field" readonly value="—"><button class="btn" id="copyAmt">Copy số tiền</button></div>
@@ -73,7 +72,7 @@
       <ol class="mini">
         <li>Chọn gói & nhập <b>email nhận key</b>.</li>
         <li>Bấm <b>Tạo đơn & Hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
-        <li>Quét QR bằng <b>VietQR</b> trong ứng dụng ngân hàng; dán đúng nội dung & số tiền.</li>
+        <li>Quét QR bằng <b>MoMo</b> hoặc <b>VietQR</b>; dán đúng nội dung & số tiền.</li>
         <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận (Discord + Email).</li>
       </ol>
     </section>
@@ -96,22 +95,6 @@
     const EMAILJS_PUBLIC_KEY   = 'a2UFiSwx-1WVOyt2a';
     const EMAILJS_SERVICE_ID   = 'vstoc';
     const EMAILJS_TEMPLATE_ID  = 'template_xu6hvol';
-
-        // === VietQR bank config (điền thông tin tài khoản nhận) ===
-        const BANK_CODE = 'stb';             // ví dụ Vietcombank -> 'vcb'
-        const BANK_ACCOUNT = '060734718888';   // số tài khoản nhận
-        const BANK_ACCOUNT_NAME = 'BUI CHI VINH'; // tên chủ tài khoản
-
-        function buildVietQRSrc(amountVND, addInfo){
-          const base = `https://img.vietqr.io/image/${BANK_CODE}-${BANK_ACCOUNT}-compact.png`;
-          const qs = new URLSearchParams({
-            amount: String(amountVND||''),
-            addInfo: addInfo||'',
-            accountName: BANK_ACCOUNT_NAME||''
-          });
-          return `${base}?${qs.toString()}`;
-        }
-    
 
     try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
 
@@ -149,9 +132,6 @@
       amountField.value = formatVND(v);
       noteField.value = shortRef();
       orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
-          noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
-          const qr = document.getElementById('qrImg');
-          if (qr) qr.src = buildVietQRSrc(v, noteField.value);
           noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
 
       // fallback mailto
