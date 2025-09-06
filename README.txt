@@ -13,3 +13,6 @@ MoMo (tạm thời, không cần Merchant):
 
 Nâng cấp Merchant (sau này):
 - Dùng Payment Link / IPN để xác nhận tự động
+
+
+[2025-09-06] Đã đổi buynow.html -> pages/buy.html; cập nhật routes/tab; sửa logic gửi Discord + Email và fallback mailto.

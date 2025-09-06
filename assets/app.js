@@ -14,7 +14,7 @@
 const routes = {
   home: 'pages/home.html',
   features: 'pages/features.html',
-  buynow: 'pages/buynow.html',
+  buy: 'pages/buy.html',
   download: 'pages/download.html',
   support: 'pages/support.html',
   contact: 'pages/contact.html',
