@@ -39,6 +39,27 @@ function loadPage(tab){
   const iframe = ensureIframe();
   iframe.style.display = 'block';
   iframe.src = routes[tab] || routes.home;
+  
+  // Re-run inline/external scripts inside the iframe content (for pages that rely on inline <script>)
+  iframe.addEventListener('load', () => {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) return;
+      // Only do this for BUY/BUYNOW pages (avoid unnecessary work on others)
+      const url = (iframe.src || '').toLowerCase();
+      if (!/\/pages\/(buy|buynow)\.html(\?|#|$)/.test(url)) return;
+
+      doc.querySelectorAll('script').forEach(oldS => {
+        const s = doc.createElement('script');
+        // copy attributes (src, type, etc.)
+        for (const a of oldS.attributes) s.setAttribute(a.name, a.value);
+        if (!oldS.src) s.textContent = oldS.textContent;
+        // replace to trigger execution
+        oldS.replaceWith(s);
+      });
+    } catch(e) { /* ignore */ }
+  });
+
   iframe.onerror = () => {
     iframe.style.display='none';
     const panel=document.getElementById('panel');
