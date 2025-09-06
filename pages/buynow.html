@@ -178,7 +178,7 @@
           '• Email nhận key: ' + buyer
         ];
         const sharedText = msgLines.join('\n');
-        const emailSubject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+        const emailSubject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
 
         paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
         paidBtn.disabled = true;
