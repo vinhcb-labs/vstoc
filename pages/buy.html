@@ -41,11 +41,11 @@
             <option value="1990000" data-name="Lifetime">Lifetime — 1.990.000 ₫ (trọn đời)</option>
           </select>
           <input id="email" class="search" placeholder="Email nhận key" style="width:280px"/>
-          <button class="btn" id="payBtn" type="button">Tạo đơn & Hiển thị QR</button>
+          <button class="btn" id="payBtn" type="button">Tạo đơn để hiển thị QR</button>
         </div>
         <p class="mini" id="orderInfo" style="margin:6px 0 0 0"></p>
         <div style="height:1px;background:var(--muted);margin:16px 0"></div>
-        <div class="mini">Sau khi thanh toán, bấm <b>Đã thanh toán</b> ở thẻ QR để gửi xác nhận.</div>
+       
       </article>
 
       <article class="card">
@@ -58,14 +58,15 @@
             <div class="mini" style="margin-top:8px"><b>Nội dung chuyển khoản</b></div>
             <div class="row"><input id="noteField" class="note-field" readonly value="—"><button class="btn" id="copyNote">Copy nội dung</button></div>
             <div class="row" style="margin-top:8px">
+			 <div class="mini">Sau khi chuyển khoản xong, nhấn để gửi xác nhận.</div>
               <button class="btn" id="paidBtn" type="button">Đã thanh toán</button>
               <a class="btn secondary" id="paidMailto" style="display:none">Gửi email thủ công</a>
             </div>
             <div id="paidStatus" class="mini" style="margin-top:8px"></div>
-            <div class="mini tip">Nếu Discord & Email cùng lỗi, hệ thống sẽ mở email dự phòng để bạn gửi tay.</div>
+            
           </div>
         </div>
-        <p class="mini" style="margin:6px 0 0 0"><b>QR cập nhật theo đơn</b> (VietQR ngân hàng). Chuyển đúng <i>Số tiền</i> & <i>Nội dung CK</i>.</p>
+        
       </article>
     </div>
 
@@ -73,9 +74,9 @@
       <h3>Hướng dẫn thanh toán</h3>
       <ol class="mini">
         <li>Chọn gói & nhập <b>email nhận key</b>.</li>
-        <li>Bấm <b>Tạo đơn & Hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
+        <li>Bấm <b>Tạo đơn để hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
         <li>Quét QR bằng <b>VietQR</b> trong ứng dụng ngân hàng.</li>
-        <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận (Discord + Email).</li>
+        <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận .</li>
       </ol>
     </section>
   </div>

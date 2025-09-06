@@ -16,10 +16,10 @@ const routes = {
   features: 'pages/features.html',
   buy: 'pages/buy.html',
   download: 'pages/download.html',
-  support: 'pages/support.html',
-  contact: 'pages/contact.html',
-  terms: 'pages/terms.html',
-  privacy: 'pages/privacy.html',
+  \1pages/support.html\2,
+  \1pages/contact.html\2,
+  \1pages/terms.html\2,
+  \1pages/privacy.html\2,
 };
 
 function ensureIframe(){
