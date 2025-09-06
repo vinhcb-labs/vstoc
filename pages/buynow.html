@@ -22,6 +22,12 @@
     code{background:#f4f4f4;border:1px solid #e8e8e8;border-radius:6px;padding:2px 6px}
     .muted{opacity:.7}
     .sep{height:1px;background:var(--muted);margin:16px 0}
+  
+    /* High-contrast fields for amount & note */
+    .note-field{width:360px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--muted);background:var(--bg);color:var(--ink);font-weight:600;letter-spacing:.2px}
+    .btn{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+    .btn.secondary{background:transparent;color:var(--ink);border-color:var(--muted)}
+
   </style>
 </head>
 <body>
@@ -51,12 +57,10 @@
         <div class="qrBox">
           <img class="qr" src="../assets/momo-qr.png" alt="MoMo QR (thay bằng QR nhận tiền của bạn)">
           <div>
-            <div class="mini"><b>Số tiền:</b> <span id="amountText">—</span></div>
-            <div class="mini"><b>Nội dung chuyển khoản:</b> <code id="noteText">—</code></div>
-            <div class="row" style="margin-top:8px">
-              <button class="btn secondary" id="copyAmt">Copy số tiền</button>
-              <button class="btn secondary" id="copyNote">Copy nội dung</button>
-            </div>
+            <div class="mini"><b>Số tiền:</b></div>
+            <div class="row"><input id="amountField" class="note-field" readonly value="—"><button class="btn" id="copyAmt">Copy số tiền</button></div>
+            <div class="mini" style="margin-top:8px"><b>Nội dung chuyển khoản:</b></div>
+            <div class="row"><input id="noteField" class="note-field" readonly value="—"><button class="btn" id="copyNote">Copy nội dung</button></div>
             <div class="row" style="margin-top:8px">
               <a class="btn" id="paidBtn" href="mailto:vinhcb.path@gmail.com?subject=VSTOC%20-%20Confirm%20Payment&body=Ch%C3%A0o%20b%E1%BA%A1n%2C%20t%C3%B4i%20%C4%91%C3%A3%20thanh%20to%C3%A1n%20MoMo%20cho%20g%C3%B3i%20VSTOC.%0AEmail%20nh%E1%BA%ADn%20key%3A%20...%0AM%C3%A3%20%C4%91%C6%A1n%3A%20...%0AGi%C3%A1%20tr%E1%BB%8B%3A%20..." target="_blank" rel="noopener">Đã thanh toán</a>
             </div>
@@ -89,8 +93,8 @@
     (function(){
       const plan = document.getElementById('plan');
       const email = document.getElementById('email');
-      const amountText = document.getElementById('amountText');
-      const noteText = document.getElementById('noteText');
+      const amountField = document.getElementById('amountField');
+      const noteField = document.getElementById('noteField');
       const orderInfo = document.getElementById('orderInfo');
 
       function formatVND(v){
@@ -111,8 +115,8 @@
       function sync(){
         const v=parseInt(plan.value||'0');
         const planName=plan.options[plan.selectedIndex]?.dataset?.name||'Plan';
-        amountText.textContent = formatVND(v);
-        noteText.textContent = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
+        amountField.value = formatVND(v);
+        noteField.value = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
         orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
         const mail = document.getElementById('paidBtn');
         const subject = encodeURIComponent('VSTOC - Confirm Payment');
@@ -125,8 +129,8 @@
       let curOrderId = newOrderId();
       sync();
 
-      document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountText.textContent);
-      document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteText.textContent);
+      document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountField.value);
+      document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteField.value);
 
       document.getElementById('payBtn').onclick = ()=>{
         curOrderId = newOrderId();
