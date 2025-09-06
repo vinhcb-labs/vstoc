@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5,112 +6,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VSTOC — Buy Now</title>
   <link rel="stylesheet" href="../assets/style.css">
-  <!-- AdSense: bật sau khi domain được duyệt, thay client id cho đúng -->
-  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
   <style>
     .wrap{max-width:1100px;margin:0 auto;padding:18px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:860px){.grid{grid-template-columns:1fr}}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media (max-width:860px){.grid{grid-template-columns:1fr}}
     .card{border:1px solid var(--muted);border-radius:12px;padding:14px}
     .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .mini{font-size:14px;opacity:.9}
-    .btn{border:1px solid #111;padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-    .btn.secondary{border-color:#999;color:#111}
+    .btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn.secondary{background:transparent;color:var(--ink);border-color:var(--muted)}
     .search{border:1px solid var(--muted);border-radius:10px;padding:10px}
     .qrBox{display:flex;gap:14px;align-items:flex-start}
     img.qr{max-width:260px;border-radius:12px;border:1px solid var(--muted)}
-    code{background:#f4f4f4;border:1px solid #e8e8e8;border-radius:6px;padding:2px 6px}
-    .muted{opacity:.7}
-    .sep{height:1px;background:var(--muted);margin:16px 0}
-  
-    /* High-contrast fields for amount & note */
     .note-field{width:360px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--muted);background:var(--bg);color:var(--ink);font-weight:600;letter-spacing:.2px}
-    .btn{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-    .btn.secondary{background:transparent;color:var(--ink);border-color:var(--muted)}
-
-  
-    /* Hướng dẫn thanh toán */
     .pay-guide{margin-top:16px;border-left:4px solid var(--accent);}
     .pay-guide h3{margin:0 0 8px 0}
     .pay-guide ol{margin:8px 0 0 22px}
     .pay-guide li{margin:6px 0}
     .tip{border:1px dashed var(--muted);border-radius:10px;padding:10px;margin-top:10px}
-
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h2 style="margin:0 0 10px 0">BUYNOW</h2>
-    <p class="mini muted" style="margin:0 0 14px 0">Thanh toán qua MoMo bằng mã QR. Lưu ý: thay ảnh QR bằng QR nhận tiền của bạn tại <code>assets/momo-qr.png</code>.</p>
+    <h2>BUYNOW</h2>
+    <p class="mini">Thanh toán qua MoMo bằng mã QR.</p>
 
     <div class="grid">
       <article class="card">
-        <h3 style="margin:0 0 8px 0">Chọn gói & thông tin nhận key</h3>
-        <div class="row" style="margin-top:6px">
+        <h3>Chọn gói & thông tin nhận key</h3>
+        <div class="row">
           <select id="plan" class="search" style="width:240px">
             <option value="490000" data-name="Pro (1 năm)">Pro — 490.000 ₫ / năm</option>
             <option value="1490000" data-name="Business (1 năm)">Business — 1.490.000 ₫ / năm</option>
             <option value="1990000" data-name="Lifetime">Lifetime — 1.990.000 ₫ (trọn đời)</option>
           </select>
           <input id="email" class="search" placeholder="Email nhận key" style="width:280px"/>
-          <button class="btn" id="payBtn">Tạo đơn & Hiển thị QR</button>
+          <button class="btn" id="payBtn" type="button">Tạo đơn & Hiển thị QR</button>
         </div>
         <p class="mini" id="orderInfo" style="margin:6px 0 0 0"></p>
-        <div class="sep"></div>
-        <div class="mini muted">Sau khi thanh toán, vui lòng bấm <b>Đã thanh toán</b> (ở thẻ QR) để gửi xác nhận và nhận key qua email.</div>
+        <div style="height:1px;background:var(--muted);margin:16px 0"></div>
+        <div class="mini">Sau khi thanh toán, bấm <b>Đã thanh toán</b> ở thẻ QR để gửi xác nhận.</div>
       </article>
 
       <article class="card">
-        <h3 style="margin:0 0 8px 0">Thanh toán qua MoMo (QR)</h3>
+        <h3>Thanh toán qua MoMo (QR)</h3>
         <div class="qrBox">
-          <img class="qr" src="../assets/momo-qr.png" alt="MoMo QR (thay bằng QR nhận tiền của bạn)">
+          <img class="qr" src="../assets/momo-qr.png" alt="MoMo QR">
           <div>
-            <div class="mini"><b>Số tiền:</b></div>
+            <div class="mini"><b>Số tiền</b></div>
             <div class="row"><input id="amountField" class="note-field" readonly value="—"><button class="btn" id="copyAmt">Copy số tiền</button></div>
-            <div class="mini" style="margin-top:8px"><b>Nội dung chuyển khoản:</b></div>
+            <div class="mini" style="margin-top:8px"><b>Nội dung chuyển khoản</b></div>
             <div class="row"><input id="noteField" class="note-field" readonly value="—"><button class="btn" id="copyNote">Copy nội dung</button></div>
             <div class="row" style="margin-top:8px">
               <button class="btn" id="paidBtn" type="button">Đã thanh toán</button>
-              <a class="btn secondary" id="paidMailto" style="display:none" href="mailto:vinhcb.path@gmail.com?subject=VSTOC%20-%20Confirm%20Payment&body=Ch%C3%A0o%20b%E1%BA%A1n%2C%20t%C3%B4i%20%C4%91%C3%A3%20thanh%20to%C3%A1n%20MoMo%20cho%20g%C3%B3i%20VSTOC.%0AEmail%20nh%E1%BA%ADn%20key%3A%20...%0AM%C3%A3%20%C4%91%C6%A1n%3A%20...%0AGi%C3%A1%20tr%E1%BB%8B%3A%20..." target="_blank" rel="noopener">Đã thanh toán</a>
+              <a class="btn secondary" id="paidMailto" style="display:none">Gửi email thủ công</a>
             </div>
             <div id="paidStatus" class="mini" style="margin-top:8px"></div>
-            <div class="mini muted" style="margin-top:8px">* Khi có tài khoản Merchant, thay QR tĩnh bằng <i>Payment Link</i> để xác nhận tự động.</div>
+            <div class="mini tip">Nếu Discord & Email cùng lỗi, hệ thống sẽ mở email dự phòng để bạn gửi tay.</div>
           </div>
         </div>
       </article>
     </div>
 
-    <section style="margin-top:18px">
-      <h3 class="mini" style="margin:0 0 6px 0">Quảng cáo</h3>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="1234567890"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-        (function(){
-          if (location.protocol.startsWith('http')){
-            (window.adsbygoogle=window.adsbygoogle||[]).push({});
-          }
-        })();
-      </script>
-      <div class="mini muted">* Chỉ hiển thị khi site chạy trên domain đã được AdSense phê duyệt.</div>
-    </section>
-  
     <section class="card pay-guide">
       <h3>Hướng dẫn thanh toán</h3>
       <ol class="mini">
-        <li>Chọn <b>gói</b> và nhập <b>email nhận key</b> (bên trái).</li>
+        <li>Chọn gói & nhập <b>email nhận key</b>.</li>
         <li>Bấm <b>Tạo đơn & Hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
-        <li>Mở <b>MoMo</b> hoặc <b>app ngân hàng (VietQR)</b> → <b>Quét QR</b> trên trang.</li>
-        <li><b>Copy số tiền</b> và <b>Copy nội dung</b> rồi dán vào app thanh toán. <u>Không sửa ký tự</u> trong nội dung.</li>
-        <li>Thanh toán xong, bấm <b>Đã thanh toán</b> để gửi email xác nhận (đã có sẵn mã đơn).</li>
+        <li>Quét QR bằng <b>MoMo</b> hoặc <b>VietQR</b>; dán đúng nội dung & số tiền.</li>
+        <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận (Discord + Email).</li>
       </ol>
-      <div class="mini tip">Mẹo: nếu lỡ nhập sai số tiền hoặc nội dung, trả lời email xác nhận kèm <b>mã đơn</b> và <b>ảnh giao dịch</b> để đối soát nhanh.</div>
     </section>
-</div>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     (function(){
       const plan = document.getElementById('plan');
@@ -118,48 +86,54 @@
       const amountField = document.getElementById('amountField');
       const noteField = document.getElementById('noteField');
       const orderInfo = document.getElementById('orderInfo');
-      // === Discord Webhook config ===
-      // TODO: Dán webhook Discord vào đây (ví dụ: https://discord.com/api/webhooks/xxx/yyy )
-      const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/REPLACE_ME';
+
+      // Discord webhook & EmailJS config (public only)
+      const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp";
       const DISCORD_USERNAME = 'VSTOC Bot';
-      // === EmailJS config (send email to buyer) ===
-      // Đăng ký tại https://www.emailjs.com/ → tạo Service, Template và Public Key
-      const EMAILJS_PUBLIC_KEY   = 'REPLACE_EMAILJS_PUBLIC_KEY';
-      const EMAILJS_SERVICE_ID   = 'REPLACE_EMAILJS_SERVICE_ID';
-      const EMAILJS_TEMPLATE_ID  = 'REPLACE_EMAILJS_TEMPLATE_ID';
-
-      async function sendEmailToBuyer({orderId, planName, amountText, buyerEmail}){
-        if (!buyerEmail) throw new Error('Buyer email trống');
-        if (!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY.includes('REPLACE_EMAILJS')){
-          throw new Error('EmailJS chưa cấu hình');
-        }
-        // init (idempotent)
-        try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
-        const tpl = {
-          order_id: orderId,
-          plan_name: planName,
-          amount_text: amountText,
-          buyer_email: buyerEmail
-        };
-        const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
-        if (res.status !== 200){
-          throw new Error('EmailJS status ' + res.status);
-        }
-      }
-
       const DISCORD_AVATAR = '';
 
-      async function sendDiscord({orderId, planName, amountText, buyerEmail}){
-        if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK.includes('REPLACE_ME')) {
-          throw new Error('Webhook chưa được cấu hình');
-        }
+      const EMAILJS_PUBLIC_KEY   = "a2UFiSwx-1WVOyt2a";
+      const EMAILJS_SERVICE_ID   = 'template_uxp1tzl';
+      const EMAILJS_TEMPLATE_ID  = 'template_uxp1tzl';
+
+      try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
+
+      function formatVND(v){ try{ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; } }
+      function today(){ const d=new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`; }
+      function newOrderId(){ const rnd=Math.random().toString(36).slice(2,8).toUpperCase(); return `VSTOC-${today()}-${rnd}`; }
+      let curOrderId = newOrderId();
+
+      function sync(){
+        const v=parseInt(plan.value||'0');
+        const planName=plan.options[plan.selectedIndex]?.dataset?.name||'Plan';
+        amountField.value = formatVND(v);
+        noteField.value = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
+        orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
+
+        // fallback mailto
+        const mail = document.getElementById('paidMailto');
+        const subject = 'VSTOC - Confirm Payment';
+        const body = `Chào bạn, tôi đã thanh toán MoMo cho gói ${planName}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
+        mail.href = `mailto:vinhcb.path@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
+      sync();
+
+      document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountField.value);
+      document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteField.value);
+      document.getElementById('payBtn').onclick = ()=>{ curOrderId = newOrderId(); sync(); alert('Đã tạo mã đơn mới. Quét QR và thanh toán nhé.'); };
+      email.addEventListener('input', sync); plan.addEventListener('change', sync);
+
+      async function sendDiscord({orderId, planName, amountText, buyerEmail, sharedText}){
+        if (!DISCORD_WEBHOOK) throw new Error('Webhook chưa cấu hình');
+        const now = new Date();
+        const vnTime = now.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '');
+        const title = `Xác nhận thanh toán VSTOC — ${vnTime}`;
         const payload = {
           username: DISCORD_USERNAME || undefined,
           avatar_url: DISCORD_AVATAR || undefined,
-          content: null,
+          content: sharedText || null,
           embeds: [{
-            title: 'Xác nhận thanh toán VSTOC',
-            color: 3066993,
+            title, color: 3066993, description: sharedText || undefined,
             fields: [
               { name: 'Mã đơn', value: orderId, inline: true },
               { name: 'Gói', value: planName, inline: true },
@@ -169,94 +143,56 @@
             timestamp: new Date().toISOString()
           }]
         };
-        const res = await fetch(DISCORD_WEBHOOK, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) {
-          const t = await res.text();
-          throw new Error('Discord trả về lỗi: ' + res.status + ' ' + t);
-        }
+        const res = await fetch(DISCORD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Discord trả về lỗi ' + res.status);
       }
 
-
-      function formatVND(v){
-        try{ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }
-        catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; }
+      async function sendEmailToBuyer({orderId, planName, amountText, buyerEmail, emailSubject, sharedText}){
+        if (!buyerEmail) throw new Error('buyerEmail trống');
+        const tpl = {
+          email_subject: emailSubject,
+          message_text: sharedText,
+          order_id: orderId,
+          plan_name: planName,
+          amount_text: amountText,
+          buyer_email: buyerEmail
+        };
+        const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
+        if (res.status !== 200) throw new Error('EmailJS status ' + res.status);
       }
-      function today(){
-        const d=new Date();
-        const y=d.getFullYear();
-        const m=String(d.getMonth()+1).padStart(2,'0');
-        const dd=String(d.getDate()).padStart(2,'0');
-        return `${y}${m}${dd}`;
-      }
-      function newOrderId(){
-        const rnd=Math.random().toString(36).slice(2,8).toUpperCase();
-        return `VSTOC-${today()}-${rnd}`;
-      }
-      function sync(){
-        const v=parseInt(plan.value||'0');
-        const planName=plan.options[plan.selectedIndex]?.dataset?.name||'Plan';
-        amountField.value = formatVND(v);
-        noteField.value = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
-        orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
-        const mail = document.getElementById('paidMailto');
-        const subject = encodeURIComponent('VSTOC - Confirm Payment');
-        const body = encodeURIComponent(
-          `Chào bạn, tôi đã thanh toán MoMo cho gói ${planName}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${formatVND(v)}`
-        );
-        mail.href = `mailto:vinhcb.path@gmail.com?subject=${subject}&body=${body}`;
-      }
-
-      let curOrderId = newOrderId();
-      sync();
-
-      document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountField.value);
-      document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteField.value);
-
-      document.getElementById('payBtn').onclick = ()=>{
-        curOrderId = newOrderId();
-        sync();
-        alert('Bước 1: Quét QR MoMo\nBước 2: Nhập đúng số tiền\nBước 3: Dán nội dung chuyển khoản (mã đơn).');
-      };
-
-      email.addEventListener('input', sync);
-      plan.addEventListener('change', sync);
-
 
       const paidBtn = document.getElementById('paidBtn');
       const paidMailto = document.getElementById('paidMailto');
       const paidStatus = document.getElementById('paidStatus');
 
       paidBtn.onclick = async ()=>{
-        try{
-          paidStatus.textContent = 'Đang gửi xác nhận lên Discord...';
-          paidBtn.disabled = true;
-          await sendDiscord({
-            orderId: curOrderId,
-            planName: plan.options[plan.selectedIndex]?.dataset?.name || 'Plan',
-            amountText: amountField.value,
-            buyerEmail: email.value || ''
-          });
-          paidStatus.textContent = 'Đã gửi thông báo lên Discord ✅. Cảm ơn bạn!';
-        }catch(err){
-          console.warn(err);
-          paidStatus.textContent = 'Không gửi được Discord. Mở email xác nhận thay thế...';
-          // Fallback: mở mailto (ẩn) cho người dùng gửi tay
-          if (paidMailto && paidMailto.href && paidMailto.href.startsWith('mailto:')){
-            paidMailto.click();
-          } else {
-            alert('Vui lòng gửi email xác nhận thủ công giúp mình.');
-          }
-        }finally{
-          paidBtn.disabled = false;
-        }
-      };
+        const planName = plan.options[plan.selectedIndex]?.dataset?.name || 'Plan';
+        const buyer = (email.value || '').trim();
+        if (!buyer){ paidStatus.textContent='Vui lòng nhập email để nhận xác nhận mua.'; email.focus(); return; }
 
+        const msgLines = [
+          'Đã nhận yêu cầu xác nhận thanh toán VSTOC',
+          '• Mã đơn: ' + curOrderId,
+          '• Gói: ' + planName,
+          '• Số tiền: ' + amountField.value,
+          '• Email nhận key: ' + buyer
+        ];
+        const sharedText = msgLines.join('\n');
+        const emailSubject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+
+        paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
+        paidBtn.disabled = true;
+        const [discordOK, emailOK] = await Promise.all([
+          (async()=>{ try{ await sendDiscord({ orderId: curOrderId, planName, amountText: amountField.value, buyerEmail: buyer, sharedText }); return true; }catch(e){ console.warn(e); return false; } })(),
+          (async()=>{ try{ await sendEmailToBuyer({ orderId: curOrderId, planName, amountText: amountField.value, buyerEmail: buyer, emailSubject, sharedText }); return true; }catch(e){ console.warn(e); return false; } })()
+        ]);
+        if (discordOK && emailOK) paidStatus.textContent='Đã gửi Discord ✅ và email cho bạn ✅';
+        else if (discordOK && !emailOK) paidStatus.textContent='Discord ✅ nhưng email thất bại ❌ — kiểm tra lại EmailJS/địa chỉ email.';
+        else if (!discordOK && emailOK) paidStatus.textContent='Discord lỗi ❌ — Email xác nhận đã gửi cho bạn ✅ (kiểm tra cả Spam/Quảng cáo).';
+        else { paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; paidMailto.click(); }
+        paidBtn.disabled = false;
+      };
     })();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </body>
 </html>
