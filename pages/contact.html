@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact · VSTOC</title>
@@ -35,36 +36,44 @@
     <button type="submit">Gửi</button>
     <p id="contact-result" class="muted" aria-live="polite"></p>
   </form>
+  
   <script>
-  // Optional EmailJS integration – set your keys in window.VSTOC_EMAILJS before use
-  // window.VSTOC_EMAILJS = { PUBLIC_KEY: "", SERVICE_ID: "", TEMPLATE_ID: "" };
+  // One-template setup: set PUBLIC_KEY, SERVICE_ID, TEMPLATE_ID in window.VSTOC_EMAILJS
+  // EmailJS template should send to admin inbox; we also pass reply_to so you can reply easily.
   (function(){
     const form = document.getElementById('contact-form');
     const result = document.getElementById('contact-result');
     if(!form) return;
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
-      // If EmailJS configured, send via EmailJS; else mailto fallback
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const now = new Date();
+      data.submitted_at = now.toISOString();
+      data.subject = "[VSTOC] Contact: " + (data.name || "Guest");
+      data.reply_to = data.email || "";
       if(window.emailjs && window.VSTOC_EMAILJS && window.VSTOC_EMAILJS.PUBLIC_KEY){
         try{
           emailjs.init(window.VSTOC_EMAILJS.PUBLIC_KEY);
-          const resp = await emailjs.send(window.VSTOC_EMAILJS.SERVICE_ID, window.VSTOC_EMAILJS.TEMPLATE_ID, data);
-          result.textContent = "Đã gửi! Chúng tôi sẽ phản hồi sớm.";
+          await emailjs.send(window.VSTOC_EMAILJS.SERVICE_ID, window.VSTOC_EMAILJS.TEMPLATE_ID, data);
+          result.textContent = "Đã gửi! Chúng tôi sẽ phản hồi sớm qua email.";
           form.reset();
         }catch(err){
+          console.error(err);
           result.textContent = "Gửi lỗi, vui lòng thử lại hoặc gửi về support@vstoc.app";
         }
       }else{
-        // mailto fallback
-        const subject = encodeURIComponent("[VSTOC] Liên hệ từ " + (data.name||"Khách"));
-        const body = encodeURIComponent((data.message||"") + "\n\nEmail: " + (data.email||""));
+        const subject = encodeURIComponent(data.subject);
+        const body = encodeURIComponent((data.message||"") + "
+
+Email: " + (data.email||""));
         window.location.href = "mailto:hello@vstoc.app?subject="+subject+"&body="+body;
       }
     });
   })();
   </script>
 </section>
+
 
   <footer class="page-footer">
     <hr/>
