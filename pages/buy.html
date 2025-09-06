@@ -155,11 +155,12 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
 
   function buildSharedText(){
     return [
-      'Đã nhận yêu cầu xác nhận thanh toán VSTOC',
+	
+      '- Xác nhận thanh toán:',
       '• Mã đơn: ' + curOrderId,
       '• Gói: ' + curPlanName(),
       '• Số tiền: ' + amountField.value,
-      '• Email nhận key: ' + (email.value||'...'),
+      '• Email: ' + (email.value||'...'),
       '• Nội dung CK: ' + noteField.value
     ].join('\n');
   }
@@ -189,16 +190,16 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
 
   paidBtn.onclick = async ()=>{
     if (!(email.value||'').trim()){ paidStatus.textContent='Vui lòng nhập email để nhận xác nhận mua.'; email.focus(); return; }
-    paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
+    paidStatus.textContent = 'Đang gửi xác nhận ...';
     paidBtn.disabled = true;
     const sharedText = buildSharedText();
-    const subject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
+    const subject = '\nXác nhận thanh toán: — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
     let dOK=false, eOK=false;
     try {
       const results = await Promise.allSettled([ sendDiscord(sharedText), sendEmail(email.value.trim(), subject, sharedText) ]);
       dOK = results[0].status === 'fulfilled'; eOK = results[1].status === 'fulfilled';
     } catch(e) {}
-    if (dOK && eOK) paidStatus.innerHTML='Đã gửi Discord <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
+    if (dOK && eOK) paidStatus.innerHTML='Đã gửi thông tin về người bán <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
     else if (dOK && !eOK) paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — kiểm tra lại EmailJS/địa chỉ email.';
     else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
     else { paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; updateMailto(); paidMailto.click(); }
