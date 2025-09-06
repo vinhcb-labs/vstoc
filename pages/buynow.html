@@ -124,20 +124,25 @@
       email.addEventListener('input', sync); plan.addEventListener('change', sync);
 
       async function sendDiscord({orderId, planName, amountText, buyerEmail, sharedText}){
-  if (!DISCORD_WEBHOOK) throw new Error('Webhook chưa cấu hình');
-  const payload = {
-    username: DISCORD_USERNAME,
-    content: sharedText
-  };
-  const res = await fetch(DISCORD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-  if (!res.ok) throw new Error('Discord trả về lỗi ' + res.status);
-}){
         if (!DISCORD_WEBHOOK) throw new Error('Webhook chưa cấu hình');
         const now = new Date();
         const vnTime = now.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '');
         const title = `Xác nhận thanh toán VSTOC — ${vnTime}`;
-        \1
-try { updateConfirmationUI(payload); } catch(e){}
+        const payload = {
+          username: DISCORD_USERNAME || undefined,
+          avatar_url: DISCORD_AVATAR || undefined,
+          content: null,
+          embeds: [{
+            title, color: 3066993, 
+            fields: [
+              { name: 'Mã đơn', value: orderId, inline: true },
+              { name: 'Gói', value: planName, inline: true },
+              { name: 'Số tiền', value: amountText, inline: true },
+              { name: 'Email nhận key', value: buyerEmail || '(không nhập)', inline: false }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        };
         const res = await fetch(DISCORD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
         if (!res.ok) throw new Error('Discord trả về lỗi ' + res.status);
       }
@@ -173,8 +178,6 @@ try { updateConfirmationUI(payload); } catch(e){}
           '• Email nhận key: ' + buyer
         ];
         const sharedText = msgLines.join('\n');
-        try { updateConfirmationUI({ order_id: curOrderId, plan_name: planName, amount_text: amountField.value, buyer_email: buyer, transfer_content: noteField.value, message_text: '' }); } catch(e){}
-
         const emailSubject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
 
         paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
@@ -190,46 +193,6 @@ try { updateConfirmationUI(payload); } catch(e){}
         paidBtn.disabled = false;
       };
     })();
-  
-// === Confirmation Details helpers ===
-function composeConfirmationText(payload) {
-  const lines = [
-    `VSTOC – XÁC NHẬN THANH TOÁN`,
-    `Mã đơn: ${payload.order_id}`,
-    `Gói: ${payload.plan_name}`,
-    `Số tiền: ${payload.amount_text}`,
-    `Email nhận key: ${payload.buyer_email}`,
-    `Nội dung CK: ${payload.transfer_content}`,
-    '',
-    `Ghi chú: ${payload.message_text || '—'}`
-  ];
-  return lines.join('\n');
-}
-function updateConfirmationUI(payload) {
-  try {
-    const text = composeConfirmationText(payload);
-    const ta = document.getElementById('confirmText');
-    if (ta) ta.value = text;
-    const subject = `VSTOC – Xác nhận đơn ${payload.order_id}`;
-    const mailto = `mailto:${encodeURIComponent(payload.buyer_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    const a = document.getElementById('btnMailtoCustomer');
-    if (a) a.href = mailto;
-  } catch(e) { console.warn('updateConfirmationUI error', e); }
-}
-document.addEventListener('click', (ev) => {
-  if (ev.target && ev.target.id === 'btnCopyConfirm') {
-    const ta = document.getElementById('confirmText');
-    if (ta) {
-      ta.select();
-      try {
-        const ok = document.execCommand('copy');
-        if (!ok && navigator.clipboard) navigator.clipboard.writeText(ta.value);
-        toast('Đã copy nội dung xác nhận.');
-      } catch(e) { console.warn(e); }
-    }
-  }
-}, true);
-
-</script>
+  </script>
 </body>
 </html>
