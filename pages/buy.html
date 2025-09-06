@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="vi">
 <head>
@@ -5,111 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VSTOC — BUY</title>
   <style>
-:root {
-  --bg: #0b0f14;
-  --surface: #121822;
-  --muted: #1b2430;
-  --text: #e6eef8;
-  --subtle: #a8b3c7;
-  --primary: #4cc9f0;
-  --ring: rgba(76, 201, 240, 0.45);
-}
-[data-theme="light"] {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --muted: #eef2f7;
-  --text: #0b1220;
-  --subtle: #475569;
-  --primary: #2563eb;
-  --ring: rgba(37, 99, 235, .28);
-}
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0;
-  background: radial-gradient(1200px 1200px at 10% -20%, rgba(76,201,240,0.08), transparent 50%),
-              radial-gradient(1200px 1200px at 110% 20%, rgba(167,139,250,0.08), transparent 50%),
-              var(--bg);
-  color: var(--text);
-  font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
-}
-.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-.brand { display: flex; align-items: center; gap: 10px; }
-.title { font-weight: 800; letter-spacing: .2px; }
-.badge { font-size: 12px; background: var(--muted); padding: 3px 8px; border-radius: 999px; color: var(--subtle); }
-.toolbar { display: flex; align-items: center; gap: 10px; }
-.theme-toggle { border: 1px solid var(--muted); background: var(--surface); color: var(--text); padding: 8px 12px; border-radius: 12px; cursor: pointer; }
-.tabs { display: flex; align-items: center; gap: 8px; background: var(--muted); padding: 6px; border-radius: 14px; width: fit-content; }
-.tab { border: 0; background: transparent; color: var(--subtle); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; text-decoration: none; }
-.tab[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 0 0 2px var(--ring) inset; }
-main { margin-top: 18px; }
-.panel { background: var(--surface); border-radius: 16px; padding: 16px; border: 1px solid var(--muted); box-shadow: 0 8px 32px 0 rgba(0,0,0,.15); min-height: 340px; overflow: hidden; }
-.grid { display: grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap: 14px; }
-@media (min-width: 640px){ .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (min-width: 960px){ .grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.tool { background: var(--muted); padding: 12px; border-radius: 12px; border: 1px solid var(--surface); }
-.mini { color: var(--subtle); font-size: 12px; }
-code { background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 6px; }
-footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
-/* ===== Store page components ===== */
-.row { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
-
-
-
-.search {
-  width: 280px; max-width: 100%;
-  padding: 10px 12px; border-radius: 12px;
-  border: 1px solid var(--muted); background: var(--surface); color: var(--text);
-  outline: none;
-}
-.search::placeholder { color: var(--subtle); }
-
-.chip { display:inline-block; padding:6px 10px; border-radius:999px;
-  background: var(--muted); color: var(--subtle); font-size:12px; }
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--muted);
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,.15);
-}
-.card h3 { margin: 6px 0 8px; }
-
-.btn {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: var(--primary);
-  color: #fff; text-decoration: none; border: 0;
-}
-.btn.secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--muted);
-}
-
-</style>
-  <style>
-    .wrap{max-width:1100px;margin:0 auto;padding:18px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media (max-width:860px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--muted);border-radius:12px;padding:14px}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .mini{font-size:14px;opacity:.9}
-    .btn{border:1px solid var(--primary);background:var(--primary);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-    .btn.secondary{background:transparent;color:var(--text);border-color:var(--muted)}
-    .search{border:1px solid var(--muted);border-radius:10px;padding:10px}
-    .qrBox{display:flex;gap:14px;align-items:flex-start}
-    img.qr{max-width:260px;border-radius:12px;border:1px solid var(--muted)}
-    .note-field{width:360px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--muted);background:var(--bg);color:var(--text);font-weight:600;letter-spacing:.2px}
-    .pay-guide{margin-top:16px;border-left:4px solid var(--primary);}
-    .pay-guide h3{margin:0 0 8px 0}
-    .pay-guide ol{margin:8px 0 0 22px}
-    .pay-guide li{margin:6px 0}
-    .tip{border:1px dashed var(--muted);border-radius:10px;padding:10px;margin-top:10px}
-    .ok{color:#22c55e} .warn{color:#eab308} .err{color:#ef4444}
+  :root{--bg:#0b1018;--panel:#111827;--text:#e5e7eb;--muted:#263042;--primary:#14b8a6}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+  h2{margin:24px 0 6px 0} .wrap{max-width:1100px;margin:0 auto;padding:18px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media (max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--muted);border-radius:12px;padding:14px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .mini{font-size:14px;opacity:.9}
+  .btn{border:1px solid var(--primary);background:var(--primary);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .btn.secondary{background:transparent;color:var(--text);border-color:var(--muted)}
+  .search{border:1px solid var(--muted);border-radius:10px;padding:10px;background:#0f172a;color:var(--text)}
+  .qrBox{display:flex;gap:14px;align-items:flex-start}
+  img.qr{max-width:260px;border-radius:12px;border:1px solid var(--muted);min-width:200px;min-height:200px;background:#0f172a}
+  .note-field{width:360px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--muted);background:#0f172a;color:var(--text);font-weight:600;letter-spacing:.2px}
+  .pay-guide{margin-top:16px;border-left:4px solid var(--primary);} .pay-guide h3{margin:0 0 8px 0}
+  .pay-guide ol{margin:8px 0 0 22px} .pay-guide li{margin:6px 0}
+  .tip{border:1px dashed var(--muted);border-radius:10px;padding:10px;margin-top:10px}
+  .ok{color:#22c55e} .warn{color:#eab308} .err{color:#ef4444}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -136,7 +51,6 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
       <article class="card">
         <h3>Thanh toán qua VietQR (Ngân hàng)</h3>
         <div class="qrBox">
-              <p class="mini" style="margin:0"><b>QR cập nhật theo đơn</b> (VietQR ngân hàng). Chuyển đúng <i>Số tiền</i> & <i>Nội dung CK</i>.</p>
           <img id="qrImg" class="qr" src="" alt="VietQR">
           <div>
             <div class="mini"><b>Số tiền</b></div>
@@ -151,6 +65,7 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
             <div class="mini tip">Nếu Discord & Email cùng lỗi, hệ thống sẽ mở email dự phòng để bạn gửi tay.</div>
           </div>
         </div>
+        <p class="mini" style="margin:6px 0 0 0"><b>QR cập nhật theo đơn</b> (VietQR ngân hàng). Chuyển đúng <i>Số tiền</i> & <i>Nội dung CK</i>.</p>
       </article>
     </div>
 
@@ -159,176 +74,136 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
       <ol class="mini">
         <li>Chọn gói & nhập <b>email nhận key</b>.</li>
         <li>Bấm <b>Tạo đơn & Hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
-        <li>Quét QR bằng <b>VietQR</b> trong ứng dụng ngân hàng; dán đúng nội dung & số tiền.</li>
+        <li>Quét QR bằng <b>VietQR</b> trong ứng dụng ngân hàng.</li>
         <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận (Discord + Email).</li>
       </ol>
     </section>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-  (function(){
-    const plan = document.getElementById('plan');
-    const email = document.getElementById('email');
-    const amountField = document.getElementById('amountField');
-    const noteField = document.getElementById('noteField');
-    const orderInfo = document.getElementById('orderInfo');
+<script>
+window.addEventListener('DOMContentLoaded', function initBuy(){
+  // Elements
+  const plan = document.getElementById('plan');
+  const email = document.getElementById('email');
+  const amountField = document.getElementById('amountField');
+  const noteField = document.getElementById('noteField');
+  const orderInfo = document.getElementById('orderInfo');
+  const qrImg = document.getElementById('qrImg');
 
-    // Discord webhook & EmailJS config (public only)
-    const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp';
-    const DISCORD_USERNAME = 'VSTOC Bot';
-    const DISCORD_AVATAR = '';
+  // Bank config
+  const BANK_CODE = 'tcb';
+  const BANK_ACCOUNT = '3973798888';
+  const BANK_ACCOUNT_NAME = 'BUI CHI VINH';
 
-    const EMAILJS_PUBLIC_KEY   = 'a2UFiSwx-1WVOyt2a';
-    const EMAILJS_SERVICE_ID   = 'vstoc';
-    const EMAILJS_TEMPLATE_ID  = 'template_xu6hvol';
+  // Gateways
+  const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1413724237981679637/d3sPSuYaGyq4sAr_h-V9TMnf4AcnNv761tD4hoHK0IGH2EorJNrNzxnf1rC_UsHwf4Jp';
+  const DISCORD_USERNAME = 'VSTOC Bot';
+  const DISCORD_AVATAR = '';
 
-        // === VietQR bank config (điền thông tin tài khoản nhận) ===
-        const BANK_CODE = 'tcb';             // ví dụ Vietcombank -> 'vcb'
-        const BANK_ACCOUNT = '3973798888';   // số tài khoản nhận
-        const BANK_ACCOUNT_NAME = 'BUI CHI VINH'; // tên chủ tài khoản
+  const EMAILJS_PUBLIC_KEY   = 'a2UFiSwx-1WVOyt2a';
+  const EMAILJS_SERVICE_ID   = 'vstoc';
+  const EMAILJS_TEMPLATE_ID  = 'template_xu6hvol';
 
-        function buildVietQRSrc(amountVND, addInfo){
-          const base = `https://img.vietqr.io/image/${BANK_CODE}-${BANK_ACCOUNT}-compact.png`;
-          const qs = new URLSearchParams({
-            amount: String(amountVND||''),
-            addInfo: addInfo||'',
-            accountName: BANK_ACCOUNT_NAME||''
-          });
-          return `${base}?${qs.toString()}`;
-        }
-    
+  // Init EmailJS if available
+  try { if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) { console.warn('EmailJS init failed', e); }
 
-    try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
+  // Helpers
+  const fmtVND = v => {
+    try { return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }
+    catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; }
+  };
+  const today = () => { const d=new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`; };
+  const yymmdd = () => { const d=new Date(); return `${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`; };
+  const newOrderId = () => `VSTOC-${today()}-${Math.random().toString(36).slice(2,8).toUpperCase()}`;
+  const emailTag = () => ((email.value||'').split('@')[0]||'').replace(/[^a-z0-9]/gi,'').slice(0,6) || 'user';
+  const planCode = () => /lifetime/i.test(curPlanName()) ? 'L' : (/business/i.test(curPlanName()) ? 'B' : 'P');
+  const curPlanName = () => plan.options[plan.selectedIndex]?.dataset?.name || 'Plan';
+  const buildVietQRSrc = (amountVND, addInfo) => {
+    const base = `https://img.vietqr.io/image/${BANK_CODE}-${BANK_ACCOUNT}-compact.png`;
+    const qs = new URLSearchParams({ amount: String(amountVND||''), addInfo: addInfo||'', accountName: BANK_ACCOUNT_NAME||'' });
+    return `${base}?${qs.toString()}`;
+  };
+  const shortRef = () => `VST${yymmdd()}-${Math.random().toString(36).slice(2,6).toUpperCase()}-${planCode()}-${emailTag()}`;
 
-    function formatVND(v){ try{ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; } }
-    function today(){ const d=new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`; }
-    function newOrderId(){ const rnd=Math.random().toString(36).slice(2,8).toUpperCase(); return `VSTOC-${today()}
+  let curOrderId = newOrderId();
 
-        function emailTag(){
-          const local = (email.value||'').split('@')[0]||'';
-          const norm = local.replace(/[^a-z0-9]/gi,'').slice(0,6);
-          return norm || 'user';
-        }
-        function planCodeFrom(name){
-          if(/lifetime/i.test(name)) return 'L';
-          if(/business/i.test(name)) return 'B';
-          return 'P'; // default Pro
-        }
-        function yymmdd(){
-          const d=new Date();
-          return `${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
-        }
-        function shortRef(){
-          const rnd=Math.random().toString(36).slice(2,6).toUpperCase();
-          const planName=plan.options[plan.selectedIndex]?.dataset?.name||'';
-          const code=planCodeFrom(planName);
-          return `VST${yymmdd()}-${rnd}-${code}-${emailTag()}`;
-        }
+  function sync(){
+    const v = parseInt(plan.value||'0', 10);
+    const pName = curPlanName();
+    amountField.value = fmtVND(v);
+    noteField.value = shortRef();
+    orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${pName}`;
+    noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
+    if (qrImg) qrImg.src = buildVietQRSrc(v, noteField.value);
+  }
 
--${rnd}`; }
-    let curOrderId = newOrderId();
+  // Bind
+  document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountField.value);
+  document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteField.value);
+  document.getElementById('payBtn').onclick = ()=>{ curOrderId = newOrderId(); sync(); alert('Đã tạo mã đơn mới. Quét QR và thanh toán nhé.'); };
+  email.addEventListener('input', sync);
+  plan.addEventListener('change', sync);
 
-    function sync(){
-      const v=parseInt(plan.value||'0');
-      const planName=plan.options[plan.selectedIndex]?.dataset?.name||'Plan';
-      amountField.value = formatVND(v);
-      noteField.value = shortRef();
-      orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
-          noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
-          const qr = document.getElementById('qrImg');
-          if (qr) qr.src = buildVietQRSrc(v, noteField.value);
-          noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
+  // Initial fill
+  sync();
 
-      // fallback mailto
-      const mail = document.getElementById('paidMailto');
-      const subject = 'VSTOC - Confirm Payment';
-      const body = `Chào bạn, tôi đã thanh toán MoMo cho gói ${planName}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
-      mail.href = `mailto:vinhcb.path@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-    sync();
+  // ==== Payment confirmation ====
+  const paidBtn = document.getElementById('paidBtn');
+  const paidMailto = document.getElementById('paidMailto');
+  const paidStatus = document.getElementById('paidStatus');
 
-    document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountField.value);
-    document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteField.value);
-    document.getElementById('payBtn').onclick = ()=>{ curOrderId = newOrderId(); sync(); alert('Đã tạo mã đơn mới. Quét QR và thanh toán nhé.'); };
-    email.addEventListener('input', sync); plan.addEventListener('change', sync);
+  function buildSharedText(){
+    return [
+      'Đã nhận yêu cầu xác nhận thanh toán VSTOC',
+      '• Mã đơn: ' + curOrderId,
+      '• Gói: ' + curPlanName(),
+      '• Số tiền: ' + amountField.value,
+      '• Email nhận key: ' + (email.value||'...'),
+      '• Nội dung CK: ' + noteField.value
+    ].join('\n');
+  }
 
-    function buildSharedText({orderId, planName, amountText, buyerEmail, transferContent}){
-      const lines = [
-        'Đã nhận yêu cầu xác nhận thanh toán VSTOC',
-        '• Mã đơn: ' + orderId,
-        '• Gói: ' + planName,
-        '• Số tiền: ' + amountText,
-        '• Email nhận key: ' + buyerEmail,
-        '• Nội dung CK: ' + transferContent
-      ];
-      return lines.join('\n');
-    }
+  async function sendDiscord(sharedText){
+    if (!DISCORD_WEBHOOK) throw new Error('Webhook chưa cấu hình');
+    const payload = { username: DISCORD_USERNAME, avatar_url: DISCORD_AVATAR, content: sharedText };
+    const res = await fetch(DISCORD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    if (!res.ok) throw new Error('Discord trả về lỗi ' + res.status);
+    return true;
+  }
+  async function sendEmail(buyerEmail, subject, sharedText){
+    if (!buyerEmail) throw new Error('buyerEmail trống');
+    if (!window.emailjs) throw new Error('EmailJS không khả dụng');
+    const tpl = { email_subject: subject, message_text: sharedText, order_id: curOrderId, plan_name: curPlanName(), amount_text: amountField.value, buyer_email: buyerEmail };
+    const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
+    if (res.status !== 200) throw new Error('EmailJS status ' + res.status);
+    return true;
+  }
 
-    async function sendDiscord(sharedText){
-      if (!DISCORD_WEBHOOK) throw new Error('Webhook chưa cấu hình');
-      const payload = { username: DISCORD_USERNAME, avatar_url: DISCORD_AVATAR, content: sharedText };
-      const res = await fetch(DISCORD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-      if (!res.ok) throw new Error('Discord trả về lỗi ' + res.status);
-      return true;
-    }
+  const updateMailto = () => {
+    const subject = 'VSTOC - Confirm Payment';
+    const body = `Chào bạn, tôi đã thanh toán VietQR cho gói ${curPlanName()}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
+    paidMailto.href = `mailto:vinhcb.path@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  updateMailto();
 
-    async function sendEmailToBuyer({buyerEmail, emailSubject, sharedText, orderId, planName, amountText}){
-      if (!buyerEmail) throw new Error('buyerEmail trống');
-      const tpl = {
-        email_subject: emailSubject,
-        message_text: sharedText,
-        order_id: orderId,
-        plan_name: planName,
-        amount_text: amountText,
-        buyer_email: buyerEmail
-      };
-      const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
-      if (res.status !== 200) throw new Error('EmailJS status ' + res.status);
-      return true;
-    }
-
-    const paidBtn = document.getElementById('paidBtn');
-    const paidMailto = document.getElementById('paidMailto');
-    const paidStatus = document.getElementById('paidStatus');
-
-    paidBtn.onclick = async ()=>{
-      const planName = plan.options[plan.selectedIndex]?.dataset?.name || 'Plan';
-      const buyer = (email.value || '').trim();
-      if (!buyer){ paidStatus.textContent='Vui lòng nhập email để nhận xác nhận mua.'; email.focus(); return; }
-
-      const sharedText = buildSharedText({
-        orderId: curOrderId,
-        planName,
-        amountText: amountField.value,
-        buyerEmail: buyer,
-        transferContent: noteField.value
-      });
-
-      const emailSubject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
-
-      paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
-      paidBtn.disabled = true;
-      let discordOK = false, emailOK = false;
-      try {
-        const results = await Promise.allSettled([
-          sendDiscord(sharedText),
-          sendEmailToBuyer({ buyerEmail: buyer, emailSubject, sharedText, orderId: curOrderId, planName, amountText: amountField.value })
-        ]);
-        discordOK = results[0].status === 'fulfilled';
-        emailOK   = results[1].status === 'fulfilled';
-      } catch(e){ /* shouldn't reach here with allSettled */ }
-
-      if (discordOK && emailOK) paidStatus.innerHTML='Đã gửi Discord <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
-      else if (discordOK && !emailOK) paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — kiểm tra lại EmailJS/địa chỉ email.';
-      else if (!discordOK && emailOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
-      else { 
-        paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; 
-        paidMailto.click(); 
-      }
-      paidBtn.disabled = false;
-    };
-  })();
-  </script>
+  paidBtn.onclick = async ()=>{
+    if (!(email.value||'').trim()){ paidStatus.textContent='Vui lòng nhập email để nhận xác nhận mua.'; email.focus(); return; }
+    paidStatus.textContent = 'Đang gửi xác nhận (Discord + Email)...';
+    paidBtn.disabled = true;
+    const sharedText = buildSharedText();
+    const subject = 'Xác nhận thanh toán VSTOC — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
+    let dOK=false, eOK=false;
+    try {
+      const results = await Promise.allSettled([ sendDiscord(sharedText), sendEmail(email.value.trim(), subject, sharedText) ]);
+      dOK = results[0].status === 'fulfilled'; eOK = results[1].status === 'fulfilled';
+    } catch(e) {}
+    if (dOK && eOK) paidStatus.innerHTML='Đã gửi Discord <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
+    else if (dOK && !eOK) paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — kiểm tra lại EmailJS/địa chỉ email.';
+    else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
+    else { paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; updateMailto(); paidMailto.click(); }
+    paidBtn.disabled = false;
+  };
+});
+</script>
 </body>
 </html>
