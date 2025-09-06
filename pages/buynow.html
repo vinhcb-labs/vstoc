@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VSTOC — Buy Now</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <!-- AdSense: bật sau khi domain được duyệt, thay client id cho đúng -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <style>
+    .wrap{max-width:1100px;margin:0 auto;padding:18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:860px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--muted);border-radius:12px;padding:14px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .mini{font-size:14px;opacity:.9}
+    .btn{border:1px solid #111;padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn.secondary{border-color:#999;color:#111}
+    .search{border:1px solid var(--muted);border-radius:10px;padding:10px}
+    .qrBox{display:flex;gap:14px;align-items:flex-start}
+    img.qr{max-width:260px;border-radius:12px;border:1px solid var(--muted)}
+    code{background:#f4f4f4;border:1px solid #e8e8e8;border-radius:6px;padding:2px 6px}
+    .muted{opacity:.7}
+    .sep{height:1px;background:var(--muted);margin:16px 0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2 style="margin:0 0 10px 0">BUYNOW</h2>
+    <p class="mini muted" style="margin:0 0 14px 0">Thanh toán qua MoMo bằng mã QR. Lưu ý: thay ảnh QR bằng QR nhận tiền của bạn tại <code>assets/momo-qr.png</code>.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3 style="margin:0 0 8px 0">Chọn gói & thông tin nhận key</h3>
+        <div class="row" style="margin-top:6px">
+          <select id="plan" class="search" style="width:240px">
+            <option value="490000" data-name="Pro (1 năm)">Pro — 490.000 ₫ / năm</option>
+            <option value="1490000" data-name="Business (1 năm)">Business — 1.490.000 ₫ / năm</option>
+            <option value="1990000" data-name="Lifetime">Lifetime — 1.990.000 ₫ (trọn đời)</option>
+          </select>
+          <input id="email" class="search" placeholder="Email nhận key" style="width:280px"/>
+          <button class="btn" id="payBtn">Tạo đơn & Hiển thị QR</button>
+        </div>
+        <p class="mini" id="orderInfo" style="margin:6px 0 0 0"></p>
+        <div class="sep"></div>
+        <div class="mini muted">Sau khi thanh toán, vui lòng bấm <b>Đã thanh toán</b> (ở thẻ QR) để gửi xác nhận và nhận key qua email.</div>
+      </article>
+
+      <article class="card">
+        <h3 style="margin:0 0 8px 0">Thanh toán qua MoMo (QR)</h3>
+        <div class="qrBox">
+          <img class="qr" src="../assets/momo-qr.png" alt="MoMo QR (thay bằng QR nhận tiền của bạn)">
+          <div>
+            <div class="mini"><b>Số tiền:</b> <span id="amountText">—</span></div>
+            <div class="mini"><b>Nội dung chuyển khoản:</b> <code id="noteText">—</code></div>
+            <div class="row" style="margin-top:8px">
+              <button class="btn secondary" id="copyAmt">Copy số tiền</button>
+              <button class="btn secondary" id="copyNote">Copy nội dung</button>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <a class="btn" id="paidBtn" href="mailto:vinhcb.path@gmail.com?subject=VSTOC%20-%20Confirm%20Payment&body=Ch%C3%A0o%20b%E1%BA%A1n%2C%20t%C3%B4i%20%C4%91%C3%A3%20thanh%20to%C3%A1n%20MoMo%20cho%20g%C3%B3i%20VSTOC.%0AEmail%20nh%E1%BA%ADn%20key%3A%20...%0AM%C3%A3%20%C4%91%C6%A1n%3A%20...%0AGi%C3%A1%20tr%E1%BB%8B%3A%20..." target="_blank" rel="noopener">Đã thanh toán</a>
+            </div>
+            <div class="mini muted" style="margin-top:8px">* Khi có tài khoản Merchant, thay QR tĩnh bằng <i>Payment Link</i> để xác nhận tự động.</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section style="margin-top:18px">
+      <h3 class="mini" style="margin:0 0 6px 0">Quảng cáo</h3>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (function(){
+          if (location.protocol.startsWith('http')){
+            (window.adsbygoogle=window.adsbygoogle||[]).push({});
+          }
+        })();
+      </script>
+      <div class="mini muted">* Chỉ hiển thị khi site chạy trên domain đã được AdSense phê duyệt.</div>
+    </section>
+  </div>
+
+  <script>
+    (function(){
+      const plan = document.getElementById('plan');
+      const email = document.getElementById('email');
+      const amountText = document.getElementById('amountText');
+      const noteText = document.getElementById('noteText');
+      const orderInfo = document.getElementById('orderInfo');
+
+      function formatVND(v){
+        try{ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }
+        catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; }
+      }
+      function today(){
+        const d=new Date();
+        const y=d.getFullYear();
+        const m=String(d.getMonth()+1).padStart(2,'0');
+        const dd=String(d.getDate()).padStart(2,'0');
+        return `${y}${m}${dd}`;
+      }
+      function newOrderId(){
+        const rnd=Math.random().toString(36).slice(2,8).toUpperCase();
+        return `VSTOC-${today()}-${rnd}`;
+      }
+      function sync(){
+        const v=parseInt(plan.value||'0');
+        const planName=plan.options[plan.selectedIndex]?.dataset?.name||'Plan';
+        amountText.textContent = formatVND(v);
+        noteText.textContent = `${curOrderId}-${planName}` + (email.value?`-${email.value}`:'');
+        orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${planName}`;
+        const mail = document.getElementById('paidBtn');
+        const subject = encodeURIComponent('VSTOC - Confirm Payment');
+        const body = encodeURIComponent(
+          `Chào bạn, tôi đã thanh toán MoMo cho gói ${planName}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${formatVND(v)}`
+        );
+        mail.href = `mailto:vinhcb.path@gmail.com?subject=${subject}&body=${body}`;
+      }
+
+      let curOrderId = newOrderId();
+      sync();
+
+      document.getElementById('copyAmt').onclick = ()=> navigator.clipboard.writeText(amountText.textContent);
+      document.getElementById('copyNote').onclick = ()=> navigator.clipboard.writeText(noteText.textContent);
+
+      document.getElementById('payBtn').onclick = ()=>{
+        curOrderId = newOrderId();
+        sync();
+        alert('Bước 1: Quét QR MoMo\nBước 2: Nhập đúng số tiền\nBước 3: Dán nội dung chuyển khoản (mã đơn).');
+      };
+
+      email.addEventListener('input', sync);
+      plan.addEventListener('change', sync);
+    })();
+  </script>
+</body>
+</html>
