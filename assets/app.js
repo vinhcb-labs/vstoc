@@ -45,6 +45,7 @@ function loadPage(tab){
   const iframe = ensureIframe();
   iframe.style.display = 'block';
   iframe.src = routes[tab] || routes.home;
+  iframe.onerror = () => { iframe.style.display='none'; const panel=document.getElementById('panel'); panel.innerHTML='<div class="mini" style="padding:12px;border:1px solid var(--muted);border-radius:10px">Không tải được trang con (404). Hãy chắc chắn bạn đã giải nén đầy đủ thư mục <b>VSTOC-site</b> và mở <b>index.html</b> từ trong thư mục đó; hoặc khi host, hãy trỏ web root tới thư mục <b>VSTOC-site</b>.</div>'; };
   setActive(tab);
 }
 
