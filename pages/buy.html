@@ -45,7 +45,7 @@
         </div>
         <p class="mini" id="orderInfo" style="margin:6px 0 0 0"></p>
         <div style="height:1px;background:var(--muted);margin:16px 0"></div>
-       
+
       </article>
 
       <article class="card">
@@ -63,10 +63,10 @@
               <a class="btn secondary" id="paidMailto" style="display:none">Gửi email thủ công</a>
             </div>
             <div id="paidStatus" class="mini" style="margin-top:8px"></div>
-            
+
           </div>
         </div>
-        
+
       </article>
     </div>
 
@@ -76,7 +76,7 @@
         <li>Chọn gói & nhập <b>email nhận key</b>.</li>
         <li>Bấm <b>Tạo đơn để hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
         <li>Quét QR bằng <b>VietQR</b> trong ứng dụng ngân hàng.</li>
-        <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận .</li>
+        <li>Chuyển khoản xong, bấm <b>Đã thanh toán</b> để gửi xác nhận.</li>
       </ol>
     </section>
   </div>
@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
 
   function buildSharedText(){
     return [
-	
+
       '- Xác nhận thanh toán:',
       '• Mã đơn: ' + curOrderId,
       '• Gói: ' + curPlanName(),
@@ -190,10 +190,10 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
 
   paidBtn.onclick = async ()=>{
     if (!(email.value||'').trim()){ paidStatus.textContent='Vui lòng nhập email để nhận xác nhận mua.'; email.focus(); return; }
-    paidStatus.textContent = 'Đang gửi xác nhận ...';
+    paidStatus.textContent = 'Đang gửi xác nhận...';
     paidBtn.disabled = true;
     const sharedText = buildSharedText();
-    const subject = '\nXác nhận thanh toán: — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
+    const subject = 'Xác nhận thanh toán — ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }).replace(',', '').replaceAll('/', '-');
     let dOK=false, eOK=false;
     try {
       const results = await Promise.allSettled([ sendDiscord(sharedText), sendEmail(email.value.trim(), subject, sharedText) ]);

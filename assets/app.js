@@ -39,7 +39,7 @@ function loadPage(tab){
   const iframe = ensureIframe();
   iframe.style.display = 'block';
   iframe.src = routes[tab] || routes.home;
-  
+
   // Re-run inline/external scripts inside the iframe content (for pages that rely on inline <script>)
   iframe.addEventListener('load', () => {
     try {

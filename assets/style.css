@@ -48,8 +48,6 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
 /* ===== Store page components ===== */
 .row { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
 
-
-
 .search {
   width: 280px; max-width: 100%;
   padding: 10px 12px; border-radius: 12px;
