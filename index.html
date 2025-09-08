@@ -18,30 +18,30 @@
           <div class="title">VSTOC</div>
 		  <!-- Tạm khoá div này  <div class="badge" hidden></div>,ẩn tạm mà vẫn giữ DOM -->
           <div class="badge" hidden></div>
-		  <div class="badge">— Set & forget backup —</div>
+		  <div class="badge" data-fixed="true">— Set & forget backup —</div>
         </div>
       </div>
       <div class="toolbar">
-        <nav class="tabs" aria-label="Tabs" role="tablist">
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#home" data-tab="home" aria-selected="true">HOME</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#features" data-tab="features">FEATURES</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#buy" data-tab="buy">BUY</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#download" data-tab="download">DOWNLOAD</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#support" data-tab="support">SUPPORT</a>
+        <nav class="tabs" aria-label="Thanh tab" role="tablist">
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#home" data-tab="home" aria-selected="true">TRANG CHỦ</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#features" data-tab="features">TÍNH NĂNG</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#buy" data-tab="buy">MUA</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#download" data-tab="download">TẢI VỀ</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#support" data-tab="support">HỖ TRỢ</a>
         </nav>
-        <button id="themeToggle" class="theme-toggle" title="Toggle theme">🌗</button>
+        <button id="themeToggle" class="theme-toggle" title="Đổi giao diện">🌗</button>
       </div>
     </header>
 
     <main>
       <section id="panel" class="panel" aria-live="polite">
-        <iframe id="panelFrame" src="pages/home.html" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        <iframe id="panelFrame" src="pages/trang-chu.html" style="width:100%;height:100%;border:0;display:block;"></iframe>
       </section>
     </main>
 
     <footer>
-      <div>© <span id="year"></span> Design By VINHCB. · <a href="#privacy" data-tab="privacy" class="footer-link">Privacy</a> · <a href="#terms" data-tab="terms" class="footer-link">Terms</a> · <a href="#contact" data-tab="contact" class="footer-link">Contact</a></div>
-    </footer>
+  <div>© <span id="year"></span> Design By VINHCB. · <a href="#privacy" data-tab="privacy" class="footer-link">Quyền riêng tư</a> · <a href="#terms" data-tab="terms" class="footer-link">Điều khoản</a> · <a href="#contact" data-tab="contact" class="footer-link">Liên hệ</a></div>
+</footer>
   </div>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script src="assets/app.js"></script>

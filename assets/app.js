@@ -12,14 +12,14 @@
 })();
 
 const routes = {
-  home: 'pages/home.html',
-  features: 'pages/features.html',
-  buy: 'pages/buy.html',
-  download: 'pages/download.html',
-  support: 'pages/support.html',
-  contact: 'pages/contact.html',
-  terms: 'pages/terms.html',
-  privacy: 'pages/privacy.html',
+  home: 'pages/trang-chu.html',
+  features: 'pages/tinh-nang.html',
+  buy: 'pages/mua.html',
+  download: 'pages/tai-ve.html',
+  support: 'pages/ho-tro.html',
+  contact: 'pages/lien-he.html',
+  terms: 'pages/dieu-khoan.html',
+  privacy: 'pages/quyen-rieng-tu.html',
 };
 
 function ensureIframe(){
@@ -78,4 +78,11 @@ window.addEventListener('DOMContentLoaded', ()=> {
   const badge = document.querySelector('.badge');
   if (badge){ const isLocal = location.protocol === 'file:'; const host = location.hostname || 'localhost'; badge.textContent = isLocal ? 'Local • file://' : ('• ' + host); }
   loadPage(currentRoute());
+});
+
+
+document.addEventListener('click', (e)=>{
+  const t = e.target.closest('a[data-tab]'); if (!t) return; e.preventDefault();
+  const tab = t.dataset.tab; if (!routes[tab]) return;
+  if (location.hash !== '#' + tab) { location.hash = '#' + tab; } else { loadPage(tab); }
 });

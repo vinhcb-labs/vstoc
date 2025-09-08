@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VSTOC — BUY</title>
+  <title>VSTOC — MUA</title>
   <style>
   :root{--bg:#0b1018;--panel:#111827;--text:#e5e7eb;--muted:#263042;--primary:#14b8a6}
   *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
@@ -192,7 +192,7 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
   }
 
   const updateMailto = () => {
-    const subject = 'VSTOC - Confirm Payment';
+    const subject = 'VSTOC - Xác nhận thanh toán';
     const body = `Chào bạn, tôi đã thanh toán VietQR cho gói ${curPlanName()}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
     paidMailto.href = `mailto:vinhcb.path@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
