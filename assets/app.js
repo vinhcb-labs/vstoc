@@ -86,3 +86,59 @@ document.addEventListener('click', (e)=>{
   const tab = t.dataset.tab; if (!routes[tab]) return;
   if (location.hash !== '#' + tab) { location.hash = '#' + tab; } else { loadPage(tab); }
 });
+
+// ===== Mobile PLUS UI (drawer + bottom nav) =====
+(function(){
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const button  = document.getElementById('hamburger');
+
+  function openDrawer(){
+    if (!drawer) return;
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    overlay.hidden = false;
+    button?.setAttribute('aria-expanded','true');
+  }
+  function closeDrawer(){
+    if (!drawer) return;
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    if (overlay) overlay.hidden = true;
+    button?.setAttribute('aria-expanded','false');
+  }
+
+  button?.addEventListener('click', ()=>{
+    const open = drawer?.classList.contains('open');
+    (open ? closeDrawer : openDrawer)();
+  });
+  overlay?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') closeDrawer();
+  });
+
+  // Sync active state for bottom nav + drawer
+  function syncActive(tab){
+    document.querySelectorAll('.bn-item').forEach(el=>{
+      el.classList.toggle('active', el.dataset.tab === tab);
+    });
+    document.querySelectorAll('.drawer-link').forEach(el=>{
+      el.classList.toggle('active', el.dataset.tab === tab);
+    });
+  }
+
+  // Hook into existing functions
+  const _setActive = (typeof setActive === 'function') ? setActive : function(){};
+  window.setActive = function(tab){
+    _setActive(tab);
+    syncActive(tab);
+    closeDrawer();
+  };
+
+  // Initial sync after DOMContentLoaded route load (in case executed later)
+  window.addEventListener('DOMContentLoaded', ()=> {
+    const h = location.hash.replace('#','').trim() || 'home';
+    syncActive(h);
+  });
+})();
+
