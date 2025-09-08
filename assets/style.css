@@ -90,3 +90,41 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   color: var(--text);
   border: 1px solid var(--muted);
 }
+
+/* ===== Mobile enhancements ===== */
+@media (max-width: 640px) {
+  .container { padding: 10px; }
+  .header { flex-wrap: wrap; gap: 8px; }
+  .brand .title { font-size: 16px; }
+  .badge { font-size: 11px; padding: 3px 8px; }
+  .toolbar { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .tabs {
+    flex: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding: 4px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    display: inline-block;
+    font-size: 13px;
+    padding: 8px 10px;
+    margin-right: 4px;
+    scroll-snap-align: start;
+  }
+  .theme-toggle { padding: 8px 10px; }
+  .panel {
+    min-height: 65svh; /* account for mobile browser UI */
+    border-radius: 12px;
+  }
+  .footer { font-size: 13px; padding-top: 8px; }
+}
+
+/* Slightly larger phones / small tablets */
+@media (min-width: 641px) and (max-width: 900px) {
+  .container { padding: 12px; }
+  .tab { padding: 10px 12px; }
+  .panel { min-height: 68svh; }
+}
