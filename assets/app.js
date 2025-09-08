@@ -142,3 +142,19 @@ document.addEventListener('click', (e)=>{
   });
 })();
 
+// === Dynamic spacer so bottom-nav never overlaps content ===
+(function(){
+  function setBNHeightVar(){
+    const bn = document.querySelector('.bottom-nav');
+    const shown = bn && getComputedStyle(bn).display !== 'none';
+    const h = shown ? bn.offsetHeight : 0;
+    document.documentElement.style.setProperty('--bn-h', h + 'px');
+  }
+  window.addEventListener('DOMContentLoaded', setBNHeightVar);
+  window.addEventListener('resize', setBNHeightVar);
+  window.addEventListener('orientationchange', setBNHeightVar);
+  window.addEventListener('hashchange', setBNHeightVar);
+  // In case fonts/icons change size after load
+  setTimeout(setBNHeightVar, 300);
+})();
+

@@ -1,4 +1,5 @@
 :root {
+  --bn-h: 0px;
   --bg: #0b0f14;
   --surface: #121822;
   --muted: #1b2430;
@@ -200,7 +201,7 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   .tabs { display: none; }      /* hide top tabs on phones */
   .hamburger { display: inline-block; }
   .bottom-nav { display: grid; grid-template-columns: repeat(5, 1fr); }
-  .container { padding-bottom: 66px; } /* space for bottom nav */
+   /* space for bottom nav */
 }
 
 /* ===== Responsive content helpers for inner pages (.doc) ===== */
@@ -232,3 +233,11 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   .doc h2 { font-size: 18px; }
   .doc h3 { font-size: 16px; }
 }
+
+/* === No-overlap spacer driven by JS-measured bottom-nav height === */
+@media (max-width: 640px) {
+  .container { padding-bottom: calc(var(--bn-h) + env(safe-area-inset-bottom, 0px)); }
+  .bottom-nav { padding-bottom: max(6px, env(safe-area-inset-bottom, 0px)); }
+}
+/* Small margin so footer isn't flush with nav */
+.footer { margin-bottom: 8px; }
