@@ -142,7 +142,7 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
     const v = parseInt(plan.value||'0', 10);
     const pName = curPlanName();
     amountField.value = fmtVND(v);
-    noteField.value = shortRef();
+    noteField.value = curOrderId;
     orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${pName}`;
     noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
     if (qrImg) qrImg.src = buildVietQRSrc(v, noteField.value);
