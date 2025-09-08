@@ -76,6 +76,6 @@ document.addEventListener('click', (e)=>{
 });
 window.addEventListener('DOMContentLoaded', ()=> {
   const badge = document.querySelector('.badge');
-  if (badge){ const isLocal = location.protocol === 'file:'; const host = location.hostname || 'localhost'; badge.textContent = isLocal ? 'Local • file://' : ('Server • ' + host); }
+  if (badge){ const isLocal = location.protocol === 'file:'; const host = location.hostname || 'localhost'; badge.textContent = isLocal ? 'Local • file://' : ('From • ' + host); }
   loadPage(currentRoute());
 });
