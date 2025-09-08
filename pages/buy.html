@@ -174,13 +174,26 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
   }
   async function sendEmail(buyerEmail, subject, sharedText){
     if (!buyerEmail) throw new Error('buyerEmail trống');
-    if (!window.emailjs) throw new Error('EmailJS không khả dụng');
-    const tpl = { email_subject: subject, message_text: sharedText, order_id: curOrderId, plan_name: curPlanName(), amount_text: amountField.value, buyer_email: buyerEmail };
-    const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
-    if (res.status !== 200) throw new Error('EmailJS status ' + res.status);
-    return true;
+    if (!window.emailjs) throw new Error('EmailJS không khả dụng (thư viện chưa tải hoặc bị chặn)');
+    try {
+      const tpl = {
+        to_email: buyerEmail,
+        reply_to: 'vinhcb.path@gmail.com',
+        email_subject: subject,
+        message_text: sharedText,
+        order_id: curOrderId,
+        plan_name: currentPlanName(),
+        amount_text: amountField.value,
+        timestamp: new Date().toISOString()
+      };
+      const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl);
+      if (!res || res.status !== 200) throw new Error('EmailJS status ' + (res && res.status));
+      return true;
+    } catch (e) {
+      console.error('EmailJS error:', (e && (e.text || e.message)) || e);
+      throw e;
+    }
   }
-
   const updateMailto = () => {
     const subject = 'VSTOC - Confirm Payment';
     const body = `Chào bạn, tôi đã thanh toán VietQR cho gói ${curPlanName()}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
@@ -200,8 +213,11 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
       dOK = results[0].status === 'fulfilled'; eOK = results[1].status === 'fulfilled';
     } catch(e) {}
     if (dOK && eOK) paidStatus.innerHTML='Đã gửi thông tin về người bán <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
-    else if (dOK && !eOK) paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — kiểm tra lại EmailJS/địa chỉ email.';
-    else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
+    else if (dOK && !eOK) { 
+      paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — đã mở cửa sổ email dự phòng.';
+      updateMailto();
+      paidMailto.click();
+    }    else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
     else { paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; updateMailto(); paidMailto.click(); }
     paidBtn.disabled = false;
   };
