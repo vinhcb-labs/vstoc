@@ -16,19 +16,21 @@
         <img class="logo" src="assets/vstoc.ico" width="28" height="28" alt="VSTOC" />
         <div>
           <div class="title">VSTOC</div>
+          <div class="badge" hidden></div>
+          <div class="badge" data-fixed="true">— Set & forget backup —</div>
 		  <!-- Tạm khoá div này  <div class="badge" hidden></div>,ẩn tạm mà vẫn giữ DOM -->
           <div class="badge" hidden></div>
-		  <div class="badge" data-fixed="true">— Set & forget backup —</div>
+		  <div class="badge">— Set & forget backup —</div>
         </div>
       </div>
       <div class="toolbar">
         <button id="hamburger" class="hamburger" aria-label="Mở menu" aria-controls="drawer" aria-expanded="false">☰</button>
         <nav class="tabs" aria-label="Thanh tab" role="tablist">
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#home" data-tab="home" aria-selected="true">TRANG CHỦ</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#features" data-tab="features">TÍNH NĂNG</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#buy" data-tab="buy">MUA</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#download" data-tab="download">TẢI VỀ</a>
-          <a class="tab" role="tab" aria-controls="panelFrame" href="#support" data-tab="support">HỖ TRỢ</a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#home" data-tab="home" aria-selected="true"><span class="ico">🏠</span><span class="lbl">TRANG CHỦ</span></a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#features" data-tab="features"><span class="ico">✨</span><span class="lbl">TÍNH NĂNG</span></a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#buy" data-tab="buy"><span class="ico">🛒</span><span class="lbl">MUA</span></a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#download" data-tab="download"><span class="ico">⬇️</span><span class="lbl">TẢI VỀ</span></a>
+          <a class="tab" role="tab" aria-controls="panelFrame" href="#support" data-tab="support"><span class="ico">🛟</span><span class="lbl">HỖ TRỢ</span></a>
         </nav>
         <button id="themeToggle" class="theme-toggle" title="Đổi giao diện">🌗</button>
       </div>
@@ -54,7 +56,7 @@
       </section>
     </main>
 
-    <footer>
+    <footer class="footer">
   <div>© <span id="year"></span> Design By VINHCB. · <a href="#privacy" data-tab="privacy" class="footer-link">Quyền riêng tư</a> · <a href="#terms" data-tab="terms" class="footer-link">Điều khoản</a> · <a href="#contact" data-tab="contact" class="footer-link">Liên hệ</a></div>
 </footer>
   <nav class="bottom-nav" aria-label="Điều hướng dưới">

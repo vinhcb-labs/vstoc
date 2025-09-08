@@ -1,5 +1,4 @@
 :root {
-  --bn-h: 0px;
   --bg: #0b0f14;
   --surface: #121822;
   --muted: #1b2430;
@@ -92,136 +91,73 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   border: 1px solid var(--muted);
 }
 
+
+/* === Icons for desktop tabs === */
+.tab .ico { font-size: 16px; line-height: 1; margin-right: 6px; display: inline-block; transform: translateY(1px); }
+.tab .lbl { vertical-align: middle; }
+@media (max-width: 640px) { .tab .ico { display: none; } }
+
+
 /* ===== Mobile enhancements ===== */
 @media (max-width: 640px) {
   .container { padding: 10px; }
   .header { flex-wrap: wrap; gap: 8px; }
-  .brand .title { font-size: 16px; }
-  .badge { font-size: 11px; padding: 3px 8px; }
-  .toolbar { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .tabs {
-    flex: 1;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-    padding: 4px;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    display: inline-block;
-    font-size: 13px;
-    padding: 8px 10px;
-    margin-right: 4px;
-    scroll-snap-align: start;
-  }
-  .theme-toggle { padding: 8px 10px; }
-  .panel {
-    min-height: 65svh; /* account for mobile browser UI */
-    border-radius: 12px;
-  }
-  .footer { font-size: 13px; padding-top: 8px; }
-}
-
-/* Slightly larger phones / small tablets */
-@media (min-width: 641px) and (max-width: 900px) {
-  .container { padding: 12px; }
-  .tab { padding: 10px 12px; }
-  .panel { min-height: 68svh; }
+  .tabs { display: none; }
+  .hamburger { display: inline-block; }
 }
 
 
-/* ===== Mobile PLUS: Drawer + Bottom Nav ===== */
+/* ===== Drawer + Bottom Nav ===== */
 .hamburger {
   display: none;
-  border: 0;
-  background: var(--surface);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 8px 12px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+  border: 0; background: var(--surface); color: var(--text);
+  border-radius: 10px; padding: 8px 12px; box-shadow: 0 0 0 1px rgba(255,255,255,.06);
 }
-
 .drawer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 78%;
-  max-width: 360px;
-  height: 100dvh;
-  background: var(--surface);
-  box-shadow: 0 8px 40px rgba(0,0,0,.35);
-  transform: translateX(-100%);
-  transition: transform .25s ease;
-  z-index: 60;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  position: fixed; top:0; left:0; width:78%; max-width:360px; height:100dvh;
+  background: var(--surface); box-shadow: 0 8px 40px rgba(0,0,0,.35);
+  transform: translateX(-100%); transition: transform .25s ease; z-index: 60;
+  padding: 16px; display:flex; flex-direction:column; gap:6px;
 }
 .drawer.open { transform: translateX(0); }
-.drawer-nav { display: flex; flex-direction: column; gap: 6px; }
-.drawer-link {
-  color: var(--text); text-decoration: none; padding: 10px 12px; border-radius: 10px;
-}
-.drawer-link:hover { background: var(--muted); }
-.overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 50;
-}
+.drawer-nav { display:flex; flex-direction:column; gap:6px; }
+.drawer-link { color: var(--text); text-decoration:none; padding: 10px 12px; border-radius: 10px; }
+.drawer-link:hover, .drawer-link.active { background: var(--muted); }
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 50; }
 .overlay[hidden] { display: none; }
 
 .bottom-nav {
-  position: sticky;
-  bottom: 0;
-  left: 0; right: 0;
-  display: none;
-  gap: 4px;
-  background: var(--surface);
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding: 6px;
-  z-index: 40;
+  position: sticky; bottom: 0; left:0; right:0;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 4px; background: var(--surface); border-top: 1px solid rgba(255,255,255,.06);
+  padding: 6px; z-index: 40;
 }
-.bn-item {
-  flex: 1;
-  text-align: center;
-  text-decoration: none;
-  color: var(--subtle);
-  padding: 8px 6px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  font-size: 12px;
-}
+.bn-item { text-align:center; text-decoration:none; color: var(--subtle);
+  padding: 8px 6px; border-radius: 10px; display:flex; flex-direction:column; gap:2px; align-items:center; font-size:12px; }
 .bn-item.active { color: var(--text); background: var(--muted); }
 .bn-ico { font-size: 18px; line-height: 1; }
+@media (min-width: 641px) { .bottom-nav { display: none; } }
 
+
+/* === No-overlap spacer (dynamic) & footer margin */
+:root { --bn-h: 0px; }
 @media (max-width: 640px) {
-  .tabs { display: none; }      /* hide top tabs on phones */
-  .hamburger { display: inline-block; }
-  .bottom-nav { display: grid; grid-template-columns: repeat(5, 1fr); }
-   /* space for bottom nav */
+  .container { padding-bottom: calc(var(--bn-h) + env(safe-area-inset-bottom, 0px)); }
+  .bottom-nav { padding-bottom: max(6px, env(safe-area-inset-bottom, 0px)); }
 }
+.footer { margin-bottom: 8px; }
+
 
 /* ===== Responsive content helpers for inner pages (.doc) ===== */
 .doc { padding: 18px; }
 .doc img, .doc video, .doc canvas, .doc svg { max-width: 100%; height: auto; }
 .doc table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
 .doc th, .doc td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,.08); }
-:root[data-theme="light"] .doc th, 
-:root[data-theme="light"] .doc td { border-bottom-color: rgba(0,0,0,.08); }
+[data-theme="light"] .doc th, [data-theme="light"] .doc td { border-bottom-color: rgba(0,0,0,.08); }
 .doc pre, .doc code, .doc kbd, .doc samp { white-space: pre-wrap; word-break: break-word; }
 .doc ul, .doc ol { padding-left: 22px; }
-.doc a.button, .doc .button, .doc .btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 10px 14px; border-radius: 10px; text-decoration: none;
-  background: var(--muted); color: var(--text);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
-}
 .doc .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
 .doc .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-
 @media (max-width: 900px) {
   .doc .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .doc .grid.two { grid-template-columns: 1fr; }
@@ -234,10 +170,3 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   .doc h3 { font-size: 16px; }
 }
 
-/* === No-overlap spacer driven by JS-measured bottom-nav height === */
-@media (max-width: 640px) {
-  .container { padding-bottom: calc(var(--bn-h) + env(safe-area-inset-bottom, 0px)); }
-  .bottom-nav { padding-bottom: max(6px, env(safe-area-inset-bottom, 0px)); }
-}
-/* Small margin so footer isn't flush with nav */
-.footer { margin-bottom: 8px; }

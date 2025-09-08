@@ -87,7 +87,8 @@ document.addEventListener('click', (e)=>{
   if (location.hash !== '#' + tab) { location.hash = '#' + tab; } else { loadPage(tab); }
 });
 
-// ===== Mobile PLUS UI (drawer + bottom nav) =====
+
+// ===== Mobile PLUS UI (drawer + bottom nav) & dynamic spacer =====
 (function(){
   const drawer = document.getElementById('drawer');
   const overlay = document.getElementById('overlay');
@@ -97,64 +98,40 @@ document.addEventListener('click', (e)=>{
     if (!drawer) return;
     drawer.classList.add('open');
     drawer.setAttribute('aria-hidden','false');
-    overlay.hidden = false;
-    button?.setAttribute('aria-expanded','true');
+    if (overlay) overlay.hidden = False;
+    if (button) button.setAttribute('aria-expanded','true');
   }
   function closeDrawer(){
     if (!drawer) return;
     drawer.classList.remove('open');
     drawer.setAttribute('aria-hidden','true');
     if (overlay) overlay.hidden = true;
-    button?.setAttribute('aria-expanded','false');
+    if (button) button.setAttribute('aria-expanded','false');
   }
-
-  button?.addEventListener('click', ()=>{
-    const open = drawer?.classList.contains('open');
+  button && button.addEventListener('click', ()=>{
+    const open = drawer && drawer.classList.contains('open');
     (open ? closeDrawer : openDrawer)();
   });
-  overlay?.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', (e)=>{
-    if (e.key === 'Escape') closeDrawer();
-  });
+  overlay && overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e)=>{ if (e.key==='Escape') closeDrawer(); });
 
-  // Sync active state for bottom nav + drawer
   function syncActive(tab){
-    document.querySelectorAll('.bn-item').forEach(el=>{
-      el.classList.toggle('active', el.dataset.tab === tab);
-    });
-    document.querySelectorAll('.drawer-link').forEach(el=>{
-      el.classList.toggle('active', el.dataset.tab === tab);
-    });
+    document.querySelectorAll('.bn-item').forEach(el=> el.classList.toggle('active', el.dataset.tab===tab));
+    document.querySelectorAll('.drawer-link').forEach(el=> el.classList.toggle('active', el.dataset.tab===tab));
   }
+  const _setActive = (typeof setActive==='function') ? setActive : function(){};
+  window.setActive = function(tab){ _setActive(tab); syncActive(tab); closeDrawer(); };
 
-  // Hook into existing functions
-  const _setActive = (typeof setActive === 'function') ? setActive : function(){};
-  window.setActive = function(tab){
-    _setActive(tab);
-    syncActive(tab);
-    closeDrawer();
-  };
-
-  // Initial sync after DOMContentLoaded route load (in case executed later)
-  window.addEventListener('DOMContentLoaded', ()=> {
-    const h = location.hash.replace('#','').trim() || 'home';
-    syncActive(h);
-  });
-})();
-
-// === Dynamic spacer so bottom-nav never overlaps content ===
-(function(){
   function setBNHeightVar(){
     const bn = document.querySelector('.bottom-nav');
     const shown = bn && getComputedStyle(bn).display !== 'none';
     const h = shown ? bn.offsetHeight : 0;
-    document.documentElement.style.setProperty('--bn-h', h + 'px');
+    document.documentElement.style.setProperty('--bn-h', (h||0) + 'px');
   }
-  window.addEventListener('DOMContentLoaded', setBNHeightVar);
+  window.addEventListener('DOMContentLoaded', setBNHeightVar, {once:true});
   window.addEventListener('resize', setBNHeightVar);
   window.addEventListener('orientationchange', setBNHeightVar);
   window.addEventListener('hashchange', setBNHeightVar);
-  // In case fonts/icons change size after load
   setTimeout(setBNHeightVar, 300);
 })();
 
