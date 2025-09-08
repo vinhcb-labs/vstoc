@@ -25,8 +25,17 @@
   .ok{color:#22c55e} .warn{color:#eab308} .err{color:#ef4444}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>/*ORIGIN-CHECK*/(function(){
+  try {
+    var o = location.origin;
+    var isFile = location.protocol === 'file:';
+    var isNull = !o || o === 'null' || o === 'file://';
+    if (isFile || isNull) { document.addEventListener('DOMContentLoaded', function(){ var el = document.getElementById('originWarn'); if (el) el.style.display='block'; }); }
+  } catch(e){}
+})();</script>
 </head>
 <body>
+  <div id="originWarn" style="display:none;background:#f59e0b;color:#111827;padding:8px 12px;text-align:center;font:14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial">Bạn đang mở site bằng <b>file://</b> hoặc origin chưa được whitelist. EmailJS sẽ chặn yêu cầu. Hãy chạy qua HTTP (ví dụ <code>http://localhost:8080</code>) và thêm origin vào EmailJS.</div>
   <div class="wrap">
     <h2>BUY</h2>
     <p class="mini">Thanh toán qua VietQR ngân hàng.</p>
@@ -109,16 +118,6 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
   try { if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) { console.warn('EmailJS init failed', e); }
 
   // Helpers
-  function mapEmailJSError(e){
-    var t = (e && (e.text || e.message || e.toString())) || '';
-    if (/origin/i.test(t) && /(not allowed|forbidden|412|403)/i.test(t)) return "Origin không được phép trên EmailJS. Hãy whitelist: " + location.origin;
-    if (/service/i.test(t) && /(not found|404)/i.test(t)) return "SERVICE_ID không đúng trong EmailJS.";
-    if (/(user|public key|unauthorized|401)/i.test(t)) return "PUBLIC_KEY sai hoặc chưa init.";
-    if (/template/i.test(t) && /(not found|404)/i.test(t)) return "TEMPLATE_ID sai hoặc bị xóa.";
-    if (/422/.test(t)) return "Thiếu biến template (ví dụ to_email). Kiểm tra Template.";
-    if (/429|rate/i.test(t)) return "Quá hạn mức (rate limit).";
-    return t || "Không rõ lỗi.";
-  }
   const fmtVND = v => {
     try { return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(v); }
     catch(e){ return (v||0).toLocaleString('vi-VN') + ' ₫'; }
@@ -184,13 +183,35 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
   }
   async function sendEmail(buyerEmail, subject, sharedText){
     if (!buyerEmail) throw new Error('buyerEmail trống');
-    if (!window.emailjs) throw new Error('EmailJS không khả dụng');
-    const tpl = { email_subject: subject, message_text: sharedText, order_id: curOrderId, plan_name: curPlanName(), amount_text: amountField.value, to_email: buyerEmail, buyer_email: buyerEmail };
-    const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl, { publicKey: EMAILJS_PUBLIC_KEY });
-    if (!res || res.status !== 200) throw new Error('EmailJS status ' + (res && res.status));
-    return true;
+    if (!window.emailjs) throw new Error('EmailJS không khả dụng (thư viện chưa tải hoặc bị chặn)');
+    try {
+      const tpl = {
+        to_email: buyerEmail,
+        reply_to: 'vinhcb.path@gmail.com',
+        email_subject: subject,
+        message_text: sharedText,
+        order_id: curOrderId,
+        plan_name: currentPlanName(),
+        amount_text: amountField.value,
+        timestamp: new Date().toISOString()
+      };
+      const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, tpl, { publicKey: EMAILJS_PUBLIC_KEY });
+      if (!res || res.status !== 200) throw new Error('EmailJS status ' + (res && res.status));
+      return true;
+    } catch (e) {
+      function mapEmailJSError(e){
+  var t = (e && (e.text || e.message || e.toString())) || '';
+  if (/origin/i.test(t) && /not allowed|forbidden|412|403/.test(t)) return "Origin không được phép trên EmailJS (hãy whitelist " + location.origin + " trong EmailJS).";
+  if (/service/i.test(t) && /not found|404/.test(t)) return "SERVICE_ID không đúng (sao chép Service ID dạng service_xxxxx từ EmailJS).";
+  if (/user|public key|unauthorized|401/i.test(t)) return "PUBLIC_KEY không đúng hoặc chưa emailjs.init.";
+  if (/template/i.test(t) && /not found|404/.test(t)) return "TEMPLATE_ID không đúng hoặc bị xoá.";
+  if (/429|rate/i.test(t)) return "Bị hạn mức (rate limit). Thử lại sau.";
+  return t||"Không rõ lỗi.";
+}
+console.error('EmailJS error:', mapEmailJSError(e));
+      throw e;
+    }
   }
-
   const updateMailto = () => {
     const subject = 'VSTOC - Confirm Payment';
     const body = `Chào bạn, tôi đã thanh toán VietQR cho gói ${curPlanName()}.\nEmail nhận key: ${email.value||'...'}\nMã đơn: ${curOrderId}\nGiá trị: ${amountField.value}`;
@@ -208,11 +229,13 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
     try {
       const results = await Promise.allSettled([ sendDiscord(sharedText), sendEmail(email.value.trim(), subject, sharedText) ]);
       dOK = results[0].status === 'fulfilled'; eOK = results[1].status === 'fulfilled';
-      if (!eOK && results[1].reason) paidStatus.textContent = 'Email lỗi: ' + mapEmailJSError(results[1].reason);
-    } catch(e) { paidStatus.textContent = 'Email lỗi: ' + mapEmailJSError(e); }
+    } catch(e) {}
     if (dOK && eOK) paidStatus.innerHTML='Đã gửi thông tin về người bán <span class="ok">✅</span> và email cho bạn <span class="ok">✅</span>';
-    else if (dOK && !eOK) paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — kiểm tra lại EmailJS/địa chỉ email.';
-    else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
+    else if (dOK && !eOK) { 
+      paidStatus.innerHTML='Discord <span class="ok">✅</span> nhưng email thất bại <span class="err">❌</span> — đã mở cửa sổ email dự phòng.';
+      updateMailto();
+      paidMailto.click();
+    }    else if (!dOK && eOK) paidStatus.innerHTML='Discord lỗi <span class="err">❌</span> — Email xác nhận đã gửi cho bạn <span class="ok">✅</span> (kiểm tra cả Spam/Quảng cáo).';
     else { paidStatus.textContent='Gửi thất bại (Discord & Email). Sẽ mở email dự phòng...'; updateMailto(); paidMailto.click(); }
     paidBtn.disabled = false;
   };
