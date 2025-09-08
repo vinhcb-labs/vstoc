@@ -71,7 +71,7 @@
     </div>
 
     <section class="card pay-guide">
-      <h3>Hướng dẫn thanh toán</h3>
+     
       <ol class="mini">
         <li>Chọn gói & nhập <b>email nhận key</b>.</li>
         <li>Bấm <b>Tạo đơn để hiển thị QR</b> để tạo <b>mã đơn</b> và điền sẵn <b>Số tiền</b> + <b>Nội dung chuyển khoản</b>.</li>
@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
 
   // Bank config
   const BANK_CODE = 'tcb';
-  const BANK_ACCOUNT = '3973798888';
+  const BANK_ACCOUNT = '0978705905';
   const BANK_ACCOUNT_NAME = 'BUI CHI VINH';
 
   // Gateways
@@ -143,7 +143,7 @@ window.addEventListener('DOMContentLoaded', function initBuy(){
     const pName = curPlanName();
     amountField.value = fmtVND(v);
     noteField.value = curOrderId;
-    orderInfo.textContent = `Mã đơn: ${curOrderId} • Gói: ${pName}`;
+    orderInfo.textContent = `${curOrderId} • ${pName}`;
     noteField.title = `Độ dài: ${noteField.value.length} ký tự`;
     if (qrImg) qrImg.src = buildVietQRSrc(v, noteField.value);
   }
