@@ -1,15 +1,140 @@
+
 <!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../assets/style.css">
-  <title>VSTOC</title>
+  <title>VSTOC · Liên hệ</title>
+  <meta name="description" content="Trang Liên hệ VSTOC — nhận tư vấn giải pháp sao lưu SQL, hỗ trợ kỹ thuật và hợp tác." />
 </head>
-<body>
-  <div class="doc">
-<div style="padding:18px"><h3>Liên hệ</h3></div>
+<body class="page-contact">
+  <main class="wrap">
+    <header>
+      <span class="badge">Liên hệ</span>
+      <h1 class="title">Trò chuyện với đội ngũ VSTOC</h1>
+      <p class="mini">Cần demo, báo giá license, hay hỗ trợ kỹ thuật? Điền biểu mẫu hoặc liên hệ trực tiếp.</p>
+    </header>
 
-  </div>
+    <section class="hero" aria-label="Kênh liên hệ VSTOC">
+      <!-- FORM -->
+      <div class="card">
+        <form id="contactForm" action="https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Liên hệ mới từ website VSTOC">
+          <input type="hidden" name="_gotcha" id="honeypot" value="">
+          <input type="hidden" name="ua" id="ua">
+          <input type="hidden" name="referer" id="ref">
+
+          <div class="row">
+            <div style="flex:1 1 200px">
+              <label for="name">Họ & Tên</label>
+              <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
+            </div>
+            <div style="flex:1 1 200px">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="ban@congty.com" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1 1 200px">
+              <label for="phone">Số điện thoại</label>
+              <input id="phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel">
+            </div>
+            <div style="flex:1 1 200px">
+              <label for="company">Công ty/đơn vị</label>
+              <input id="company" name="company" type="text" placeholder="Công ty ABC" autocomplete="organization">
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1 1 200px">
+              <label for="topic">Chủ đề</label>
+              <select id="topic" name="topic">
+                <option value="support">Hỗ trợ kỹ thuật</option>
+                <option value="license">Báo giá/License</option>
+                <option value="demo">Yêu cầu demo</option>
+                <option value="partnership">Hợp tác</option>
+                <option value="other" selected>Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="display:block">
+            <label for="message">Nội dung</label>
+            <textarea id="message" name="message" placeholder="Mô tả ngắn gọn nhu cầu hoặc vấn đề bạn gặp..." required></textarea>
+          </div>
+
+          <div class="consent" style="margin-top: 10px; display:flex; gap:10px; align-items:flex-start;">
+            <input type="checkbox" id="agree" required>
+            <span class="muted">Tôi đồng ý với <a href="dieu-khoan.html" target="_parent" rel="noopener">Điều khoản</a> và đã đọc <a href="quyen-rieng-tu.html" target="_parent" rel="noopener">Quyền riêng tư</a>.</span>
+          </div>
+
+          <div class="actions" style="margin-top:12px">
+            <button type="submit" id="submitBtn" class="btn">Gửi yêu cầu</button>
+            <span id="formStatus" class="mini">Thời gian phản hồi trung bình: 1–2 ngày làm việc.</span>
+          </div>
+        </form>
+        <p class="mini" style="margin-top:10px">Nếu không gửi được, vui lòng email trực tiếp: <a href="mailto:vinhcb.path@gmail.com">vinhcb.path@gmail.com</a>.</p>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <aside class="card" role="complementary">
+        <div class="info-list">
+          <div class="row">
+            <div><strong>Email</strong><div><a href="mailto:vinhcb.path@gmail.com">vinhcb.path@gmail.com</a></div></div>
+          </div>
+          <div class="row">
+            <div><strong>Địa chỉ</strong><div>TP. Hồ Chí Minh, Việt Nam</div></div>
+          </div>
+        </div>
+
+        <div class="map" style="margin-top: 14px">
+          <iframe
+            title="Vị trí VSTOC (tham khảo)"
+            src="https://www.google.com/maps?q=Ho%20Chi%20Minh%20City&output=embed"
+            width="100%" height="280" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    // Honeypot & simple client-side validation / AJAX submit
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    const honey = document.getElementById('honeypot');
+    const btn = document.getElementById('submitBtn');
+    let readyToken = false;
+    window.addEventListener('load', () => {
+      document.getElementById('ua').value  = navigator.userAgent;
+      document.getElementById('ref').value = document.referrer || location.href;
+      setTimeout(() => readyToken = true, 800);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (honey.value) return; // bot
+      if (!readyToken) { statusEl.textContent = 'Đang kiểm tra... thử lại sau 1s.'; return; }
+      if (!form.reportValidity()) return;
+
+      btn.disabled = true;
+      statusEl.textContent = 'Đang gửi...';
+
+      try {
+        const resp = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        if (resp && resp.ok) {
+          form.reset();
+          statusEl.textContent = 'Đã gửi! Chúng tôi sẽ phản hồi sớm nhất.';
+        } else {
+          statusEl.textContent = 'Không gửi được lúc này. Vui lòng email: vinhcb.path@gmail.com';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Lỗi mạng. Vui lòng thử lại hoặc gửi email.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>

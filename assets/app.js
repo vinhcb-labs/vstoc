@@ -47,7 +47,7 @@ function loadPage(tab){
       if (!doc) return;
       // Only do this for BUY/BUYNOW pages (avoid unnecessary work on others)
       const url = (iframe.src || '').toLowerCase();
-      if (!/\/pages\/(buy|buynow)\.html(\?|#|$)/.test(url)) return;
+      if (!/\/pages\/(mua|buy|buynow)\.html(\?|#|$)/.test(url)) return;
 
       doc.querySelectorAll('script').forEach(oldS => {
         const s = doc.createElement('script');
@@ -98,7 +98,7 @@ document.addEventListener('click', (e)=>{
     if (!drawer) return;
     drawer.classList.add('open');
     drawer.setAttribute('aria-hidden','false');
-    if (overlay) overlay.hidden = False;
+    if (overlay) overlay.hidden = false;
     if (button) button.setAttribute('aria-expanded','true');
   }
   function closeDrawer(){
