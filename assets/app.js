@@ -12,14 +12,14 @@
 })();
 
 const routes = {
-  'trang-chu': 'pages/trang-chu.html',
-  'tinh-nang': 'pages/tinh-nang.html',
-  'mua': 'pages/mua.html',
-  'tai-ve': 'pages/tai-ve.html',
-  'ho-tro': 'pages/ho-tro.html',
-  'lien-he': 'pages/lien-he.html',
-  'dieu-khoan': 'pages/dieu-khoan.html',
-  'quyen-rieng-tu': 'pages/quyen-rieng-tu.html',
+  home: 'pages/trang-chu.html',
+  features: 'pages/tinh-nang.html',
+  buy: 'pages/mua.html',
+  download: 'pages/tai-ve.html',
+  support: 'pages/ho-tro.html',
+  contact: 'pages/lien-he.html',
+  terms: 'pages/dieu-khoan.html',
+  privacy: 'pages/quyen-rieng-tu.html',
 };
 
 function ensureIframe(){
@@ -38,21 +38,23 @@ function setActive(tab){ document.querySelectorAll('.tab').forEach(a => a.setAtt
 function loadPage(tab){
   const iframe = ensureIframe();
   iframe.style.display = 'block';
-  iframe.src = routes[tab] || routes['trang-chu'];
+  iframe.src = routes[tab] || routes.home;
 
   // Re-run inline/external scripts inside the iframe content (for pages that rely on inline <script>)
   iframe.addEventListener('load', () => {
     try {
       const doc = iframe.contentDocument || iframe.contentWindow?.document;
       if (!doc) return;
-      // For the purchase page(s), re-execute inline scripts so logic runs when loaded via iframe
+      // Only do this for BUY/BUYNOW pages (avoid unnecessary work on others)
       const url = (iframe.src || '').toLowerCase();
       if (!/\/pages\/(mua|buy|buynow)\.html(\?|#|$)/.test(url)) return;
 
       doc.querySelectorAll('script').forEach(oldS => {
         const s = doc.createElement('script');
+        // copy attributes (src, type, etc.)
         for (const a of oldS.attributes) s.setAttribute(a.name, a.value);
         if (!oldS.src) s.textContent = oldS.textContent;
+        // replace to trigger execution
         oldS.replaceWith(s);
       });
     } catch(e) { /* ignore */ }
@@ -65,7 +67,7 @@ function loadPage(tab){
   };
   setActive(tab);
 }
-function currentRoute(){ const h = decodeURIComponent(location.hash.replace('#','').trim()); return routes[h] ? h : 'trang-chu'; }
+function currentRoute(){ const h = location.hash.replace('#','').trim(); return routes[h] ? h : 'home'; }
 window.addEventListener('hashchange', ()=> loadPage(currentRoute()));
 document.addEventListener('click', (e)=>{
   const t = e.target.closest('a.tab'); if (!t) return; e.preventDefault();
@@ -132,3 +134,4 @@ document.addEventListener('click', (e)=>{
   window.addEventListener('hashchange', setBNHeightVar);
   setTimeout(setBNHeightVar, 300);
 })();
+
