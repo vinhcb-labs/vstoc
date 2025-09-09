@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="style.css">
   <title>VSTOC · Tính năng</title>
   <meta name="description" content="Tổng quan tính năng VSTOC: lập lịch, retention, mã hoá, nén, nhiều CSDL, lưu trữ đa đích, thông báo và khôi phục nhanh.">
   <style>
@@ -28,6 +28,15 @@
     @media (max-width: 640px){
       .showcase { height: 140px; }
     }
+  
+    /* Quy trình minh hoạ */
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:6px}
+    .step{border:1px solid var(--muted);border-radius:14px;background:var(--surface);padding:14px;position:relative}
+    .step .num{width:28px;height:28px;border-radius:999px;border:1px solid var(--muted);display:grid;place-items:center;font-weight:800;margin-bottom:6px}
+    .step h4{margin:0 0 4px 0}
+    @media(max-width:768px){.steps{grid-template-columns:1fr}}
+    @media(min-width:769px){.step:after{content:"";position:absolute;top:28px;right:-8px;width:16px;height:2px;background:var(--muted)} .step:last-child:after{display:none}}
+    
   </style>
 </head>
 <body>
@@ -43,12 +52,12 @@
 
       <article class="card">
         <h3>Nhiều CSDL</h3>
-        <p class="mini">Hỗ trợ Microsoft SQL Server</p>
+        <p class="mini">Hỗ trợ Microsoft SQL Server, MySQL/MariaDB, PostgreSQL.</p>
       </article>
 
       <article class="card">
         <h3>Lưu trữ đa đích</h3>
-        <p class="mini">Thư mục nội bộ / Google Drive / Dropbox(tuỳ chọn).</p>
+        <p class="mini">Thư mục nội bộ/NAS, SFTP, S3/MinIO (tuỳ chọn), Google Drive (tuỳ chọn).</p>
       </article>
     </section>
 
@@ -56,17 +65,17 @@
     <section class="grid" style="margin-top:12px">
       <article class="card">
         <h3>Mã hoá &amp; Nén</h3>
-        <p class="mini">AES‑256 + ZIP/7z; </p>
+        <p class="mini">AES‑256 + ZIP/7z; đặt mật khẩu cho file backup.</p>
       </article>
 
       <article class="card">
         <h3>Thông báo</h3>
-        <p class="mini">Thông báo email/Discord khi thành công/thất bại; log chi tiết.</p>
+        <p class="mini">Thông báo email/Telegram khi thành công/thất bại; log chi tiết.</p>
       </article>
 
       <article class="card">
-        <h3>Toàn vẹn file</h3>
-        <p class="mini">Kiểm tra tính toàn vẹn file.</p>
+        <h3>Khôi phục nhanh</h3>
+        <p class="mini">Tạo lệnh restore một chạm; kiểm tra tính toàn vẹn file.</p>
       </article>
     </section>
 
@@ -89,6 +98,32 @@
       </article>
     </section>
 
+    
+    <h2 style="margin-top:12px">📈 Quy trình minh hoạ</h2>
+    <section class="steps" aria-label="Quy trình minh hoạ">
+      <article class="step">
+        <div class="num">1</div>
+        <h4>Khai báo CSDL</h4>
+        <p class="mini">Kết nối SQL Server / MySQL / PostgreSQL; kiểm tra kết nối.</p>
+      </article>
+      <article class="step">
+        <div class="num">2</div>
+        <h4>Thiết lập Job</h4>
+        <p class="mini">Chọn lịch chạy, retention, chế độ (full/diff), nén &amp; mã hoá AES‑256.</p>
+      </article>
+      <article class="step">
+        <div class="num">3</div>
+        <h4>Lưu trữ đa đích</h4>
+        <p class="mini">Nội bộ/NAS, SFTP, S3/MinIO, Google Drive; giám sát dung lượng.</p>
+      </article>
+      <article class="step">
+        <div class="num">4</div>
+        <h4>Theo dõi &amp; Khôi phục</h4>
+        <p class="mini">Nhận email/Telegram, xem log; khôi phục nhanh &amp; kiểm tra checksum.</p>
+      </article>
+    </section>
+    
+
     <!-- Pricing -->
     <h2 style="margin-top:12px">💳 Pricing</h2>
     <section class="grid" aria-label="Bảng giá">
@@ -100,7 +135,7 @@
           <li>Không thông báo</li>
         </ul>
         <div class="price">0 ₫</div>
-        <a class="btn" href="../tai-ve.html" target="_parent" ">Tải về</a>
+        <a class="btn" href="tai-ve.html" target="_parent">Tải về</a>
       </article>
 
       <article class="card">
@@ -109,10 +144,10 @@
           <li>5 DB · lịch tự động</li>
           <li>Nén ZIP, mã hoá</li>
 		  <li>Google Drive</li>
-          <li>Thông báo email/Discord</li>
+          <li>Thông báo email/Telegram</li>
         </ul>
         <div class="price">490.000 ₫ / năm</div>
-        <a class="btn" href="../mua.html" target="_parent" ">Mua</a>
+        <a class="btn" href="mua.html" target="_parent">Mua Pro</a>
       </article>
 
       <article class="card">
@@ -121,10 +156,10 @@
           <li>Không giới hạn DB*</li>
           <li>Nén ZIP, mã hoá</li>
 		  <li>Google Drive/Dropbox</li>
-          <li>Thông báo email/Discord</li>
+          <li>Thông báo email/Telegram</li>
         </ul>
         <div class="price">1.490.000 ₫ / năm</div>
-        <a class="btn" href="../mua.html" target="_parent">Mua</a>
+        <a class="btn" href="mua.html" target="_parent">Mua</a>
       </article>
     </section>
   </div>
