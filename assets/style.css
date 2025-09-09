@@ -203,15 +203,7 @@ body, body.page{font-family:'Roboto',system-ui,-apple-system,'Segoe UI','Helveti
 
 /* Montserrat for headings (ensure priority) */
 h1,h2,h3,h4,h5,h6,.title{font-family:'Montserrat','Roboto',system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif}
-/* === Contact page responsive autofit overrides === */
-.page-contact .hero{
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)) !important;
-  align-items: stretch; 
-}
-.page-contact aside, .page-contact .card{ width:100%; }
-.page-contact .map{
-  width: 100%;
-  aspect-ratio: 4 / 3;  /* keeps proportion but expands */
+/* keeps proportion but expands */
   min-height: 280px;
 }
 .page-contact .map iframe,
@@ -221,3 +213,61 @@ h1,h2,h3,h4,h5,h6,.title{font-family:'Montserrat','Roboto',system-ui,-apple-syst
   display: block;
   border: 0;
 }
+
+/* === Contact page: clean 2-column on desktop, 1-column on mobile === */
+.page-contact .wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.page-contact .hero{
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+@media (min-width: 960px){
+  .page-contact .hero{
+    grid-template-columns: 1fr 1fr; /* equal columns */
+  }
+}
+@media (max-width: 959.98px){
+  .page-contact .hero{
+    grid-template-columns: 1fr; /* stack on small screens */
+  }
+}
+/* Ensure children fill column width */
+.page-contact .hero > *{ width: 100%; min-width: 0; }
+
+/* Map block behaves responsively without creating empty space */
+.page-contact .map{
+  width: 100%;
+  min-height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.page-contact .map iframe{
+  width: 100% !important;
+  height: 380px !important; /* fixed sensible height on desktop */
+  border: 0;
+}
+@media (max-width: 959.98px){
+  .page-contact .map iframe{
+    height: 320px !important;
+  }
+}
+/* === Contact page layout v2 (predictable) === */
+.page-contact .wrap { max-width: 1100px; margin: 0 auto; padding: 16px 16px 24px; }
+.page-contact .hero {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr; /* default: single column */
+}
+@media (min-width: 960px) {
+  .page-contact .hero {
+    grid-template-columns: 1fr 1fr !important; /* desktop: 2 columns, fill width */
+    align-items: stretch;
+  }
+}
+.page-contact .hero > * { min-width: 0; }
+.page-contact .map { width: 100%; min-height: 280px; aspect-ratio: 4/3; }
+.page-contact .map iframe,
+.page-contact .map > * { width: 100% !important; height: 100% !important; display: block; border: 0; }
