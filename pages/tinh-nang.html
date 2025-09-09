@@ -28,8 +28,8 @@
       background: radial-gradient(800px 220px at 10% 120%, rgba(76,201,240,.08), transparent 60%),
                   radial-gradient(800px 220px at 110% -20%, rgba(167,139,250,.08), transparent 60%),
                   var(--surface);
-      display: grid; place-items: center; color: var(--subtle); font-size: 12px; }
-    @media (max-width: 640px){ .showcase { height: 140px; } }
+      display: grid; place-items: center; color: var(--subtle); font-size: 12px;   padding: 8px 12px; }
+    @media (max-width: 640px){ .showcase { height: 140px;   padding: 8px 12px; } }
 
     /* Quy trình minh hoạ + icon + mũi tên nối */
     .steps{display:grid;gap:12px;margin-top:6px}
@@ -114,10 +114,10 @@
     </section>
 
     <!-- Showcase -->
-    <section class="showcase" style="margin:14px 0" aria-label="Minh hoạ"><div class="showcase-graphic" style="width:100%;height:100%">
+    \1<div class="showcase-graphic" style="width:100%;height:100%">
 <svg viewBox="0 0 1100 220" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Quy trình VSTOC">
   <defs>
-    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="rgba(76,201,240,0.18)"/>
       <stop offset="1" stop-color="rgba(167,139,250,0.12)"/>
     </linearGradient>
@@ -130,51 +130,54 @@
       .t{font: 700 18px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#e6eef7}
       .s{font: 400 14px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#b8c6d6}
       .tag{font: 400 12px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#9fb2c8}
-      .arr{fill:#7aa0c8}
+      .arrow-line{stroke:#7aa0c8;stroke-width:4;stroke-linecap:round;stroke-dasharray:12 12;animation:flow 1.8s linear infinite}
+      .arrow-head{fill:#7aa0c8}
+      @keyframes flow{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+      @media (prefers-reduced-motion: reduce){ .arrow-line{animation:none} }
     </style>
   </defs>
 
   <!-- background glow -->
-  <rect x="0" y="0" width="1100" height="220" fill="url(#g1)" opacity="0.4"/>
+  <rect x="0" y="0" width="1100" height="220" fill="url(#glow)" opacity="0.4"/>
 
   <!-- nodes -->
-  <g transform="translate(90,52)">
-    <rect class="bx" x="0"   y="0" width="230" height="110" rx="16" ry="16"/>
+  <g transform="translate(110,52)">
+    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
     <text class="t" x="14" y="28">CSDL</text>
     <text class="s" x="14" y="52">SQL Server</text>
   </g>
 
-  <g transform="translate(374,52)">
-    <rect class="bx" x="0"   y="0" width="230" height="110" rx="16" ry="16"/>
+  <g transform="translate(394,52)">
+    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
     <text class="t" x="14" y="28">Lịch &amp; Giữ</text>
     <text class="s" x="14" y="52">Full/Diff · Retention</text>
   </g>
 
-  <g transform="translate(658,52)">
-    <rect class="bx" x="0"   y="0" width="230" height="110" rx="16" ry="16"/>
+  <g transform="translate(678,52)">
+    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
     <text class="t" x="14" y="28">Nén &amp; Mã hoá</text>
     <text class="s" x="14" y="52">AES-256 · ZIP/7z</text>
   </g>
 
-  <g transform="translate(942,52)">
+  <g transform="translate(962,52)">
     <rect class="bx" x="-230" y="0" width="230" height="110" rx="16" ry="16"/>
     <text class="t" x="-216" y="28">Đích lưu</text>
     <text class="s" x="-216" y="52">Nội bộ · Drive · Dropbox</text>
   </g>
 
-  <!-- arrows -->
-  <g class="arr">
-    <rect x="322" y="104" width="40" height="4" fill="#7aa0c8"/>
-    <polygon points="362,106 352,100 352,112"/>
-    <rect x="606" y="104" width="40" height="4" fill="#7aa0c8"/>
-    <polygon points="646,106 636,100 636,112"/>
-    <rect x="890" y="104" width="40" height="4" fill="#7aa0c8"/>
-    <polygon points="930,106 920,100 920,112"/>
+  <!-- flow arrows -->
+  <g>
+    <line class="arrow-line" x1="354" y1="106" x2="392" y2="106"/>
+    <polygon class="arrow-head" points="392,106 382,100 382,112"/>
+    <line class="arrow-line" x1="638" y1="106" x2="676" y2="106"/>
+    <polygon class="arrow-head" points="676,106 666,100 666,112"/>
+    <line class="arrow-line" x1="922" y1="106" x2="960" y2="106"/>
+    <polygon class="arrow-head" points="960,106 950,100 950,112"/>
   </g>
 
   <text class="tag" x="550" y="200" text-anchor="middle">VSTOC — Cài một lần • sao lưu tự động</text>
 </svg>
-</div></section>
+</div>\3
 
     <!-- Cách hoạt động -->
     <section class="grid two" aria-label="Cách hoạt động">
