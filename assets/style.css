@@ -170,3 +170,16 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
   .doc h3 { font-size: 16px; }
 }
 
+
+
+/* === Contact page (VSTOC) === */
+.page-contact .wrap { max-width: 1100px; margin: 0 auto; padding: 16px 16px 24px; }
+.page-contact .hero { display: grid; gap: 1rem; grid-template-columns: minmax(0,1fr) minmax(0,420px); align-items: start; }
+@media (max-width: 900px){ .page-contact .hero { grid-template-columns: 1fr; } }
+.page-contact .card { background: var(--surface); border: 1px solid var(--muted); border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.15); }
+.page-contact input, .page-contact textarea, .page-contact select { background: var(--muted); color: var(--text); border: 1px solid var(--muted); }
+.page-contact input::placeholder, .page-contact textarea::placeholder { color: var(--subtle); }
+.page-contact .badge { background: var(--muted); color: var(--subtle); }
+.page-contact .map { min-height: 260px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; overflow: hidden; }
+.page-contact .consent .muted a { color: var(--primary); text-decoration: underline; }
+.page-contact .actions .btn { font-weight: 600; } /* reuse global .btn color (var(--primary)) */
