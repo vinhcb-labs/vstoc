@@ -12,14 +12,14 @@
 })();
 
 const routes = {
-  home: 'pages/trang-chu.html',
-  features: 'pages/tinh-nang.html',
-  buy: 'pages/mua.html',
-  download: 'pages/tai-ve.html',
-  support: 'pages/ho-tro.html',
-  contact: 'pages/lien-he.html',
-  terms: 'pages/dieu-khoan.html',
-  privacy: 'pages/quyen-rieng-tu.html',
+  trang-chu: 'pages/trang-chu.html',
+  tinh-nang: 'pages/tinh-nang.html',
+  mua: 'pages/mua.html',
+  tai-ve: 'pages/tai-ve.html',
+  ho-tro: 'pages/ho-tro.html',
+  lien-he: 'pages/lien-he.html',
+  dieu-khoan: 'pages/dieu-khoan.html',
+  quyen-rieng-tu: 'pages/quyen-rieng-tu.html',
 };
 
 function ensureIframe(){
@@ -67,7 +67,7 @@ function loadPage(tab){
   };
   setActive(tab);
 }
-function currentRoute(){ const h = location.hash.replace('#','').trim(); return routes[h] ? h : 'home'; }
+function currentRoute(){ const h = decodeURIComponent(location.hash.replace('#','').trim()); return routes[h] ? h : 'trang-chu'; }
 window.addEventListener('hashchange', ()=> loadPage(currentRoute()));
 document.addEventListener('click', (e)=>{
   const t = e.target.closest('a.tab'); if (!t) return; e.preventDefault();
