@@ -279,3 +279,69 @@ h1,h2,h3,h4,h5,h6,.title{font-family:'Montserrat','Roboto',system-ui,-apple-syst
 .btn:hover, .btn:focus { background: var(--primary-600); }
 .btn:active { background: var(--primary-700); transform: translateY(0.5px); }
 .btn:disabled, .btn[disabled] { opacity: .6; cursor: not-allowed; }
+
+
+/* === VSTOC Contact: 2/3–1/3 desktop grid + better checkbox align === */
+/* Desktop: 2fr : 1fr (≈ 66.7% / 33.3%). Mobile/tablet: stack 1 column. */
+@media (min-width: 1024px){
+  .page-contact .hero{
+    grid-template-columns: 2fr 1fr !important;
+    align-items: start;
+    gap: 16px;
+  }
+}
+@media (max-width: 1023.98px){
+  .page-contact .hero{
+    grid-template-columns: 1fr !important;
+    align-items: stretch;
+  }
+}
+
+/* Form grid inside khung A */
+.page-contact .form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 700px){
+  .page-contact .form-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Checkbox (tích chọn) alignment */
+.page-contact .consent{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+.page-contact .consent input[type="checkbox"]{
+  inline-size: 18px;
+  block-size: 18px;
+  margin-top: 2px; /* align with first line of text */
+}
+.page-contact .consent .muted{
+  color: var(--subtle);
+}
+.page-contact .consent .muted a{
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Map block stays responsive */
+.page-contact .map{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.page-contact .map iframe, .page-contact .map > *{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border: 0;
+}
+/* === end contact patch === */
