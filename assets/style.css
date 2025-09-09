@@ -7,6 +7,9 @@
   --text: #e6eef8;
   --subtle: #a8b3c7;
   --primary: #4cc9f0;
+  --primary-600: #3bbbe4;
+  --primary-700: #2ea6d4;
+  --ring: rgba(76,201,240,.35);
   --ring: rgba(76, 201, 240, 0.45);
 }
 /* VSTOC Responsive Full-bleed */
@@ -271,3 +274,8 @@ h1,h2,h3,h4,h5,h6,.title{font-family:'Montserrat','Roboto',system-ui,-apple-syst
 .page-contact .map { width: 100%; min-height: 280px; aspect-ratio: 4/3; }
 .page-contact .map iframe,
 .page-contact .map > * { width: 100% !important; height: 100% !important; display: block; border: 0; }
+
+/* Buttons: states */
+.btn:hover, .btn:focus { background: var(--primary-600); }
+.btn:active { background: var(--primary-700); transform: translateY(0.5px); }
+.btn:disabled, .btn[disabled] { opacity: .6; cursor: not-allowed; }
