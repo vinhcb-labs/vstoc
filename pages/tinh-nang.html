@@ -4,12 +4,129 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../assets/style.css">
-  <title>VSTOC</title>
+  <title>VSTOC · Tính năng</title>
+  <meta name="description" content="Tổng quan tính năng VSTOC: lập lịch, retention, mã hoá, nén, nhiều CSDL, lưu trữ đa đích, thông báo và khôi phục nhanh.">
+  <style>
+    /* Phần trình diễn ở giữa như ảnh mẫu */
+    .showcase {
+      height: 220px;
+      border: 1px solid var(--muted);
+      border-radius: 14px;
+      background:
+        radial-gradient(800px 220px at 10% 120%, rgba(76,201,240,.08), transparent 60%),
+        radial-gradient(800px 220px at 110% -20%, rgba(167,139,250,.08), transparent 60%),
+        var(--surface);
+      display: grid;
+      place-items: center;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+    .price { font-size: 22px; font-weight: 800; margin: 2px 0 10px; }
+    .muted { color: var(--subtle); }
+    .card ul { margin: 8px 0 0 18px; }
+    .span-2 { grid-column: 1 / -1; }
+    @media (max-width: 640px){
+      .showcase { height: 140px; }
+    }
+  </style>
 </head>
 <body>
   <div class="doc">
-<div style="padding:18px"><h3>TÍNH NĂNG</h3><ul class="mini"><li>Lập lịch & Retention</li><li>Nhiều CSDL</li><li>Lưu trữ đa đích</li><li>Thông báo lỗi</li></ul></div>
+    <h2>✨ TÍNH NĂNG</h2>
 
+    <!-- Hàng 1: 3 khối -->
+    <section class="grid" aria-label="Nhóm tính năng chính">
+      <article class="card">
+        <h3>Lập lịch &amp; Retention</h3>
+        <p class="mini">Chạy theo giờ/ngày/tuần; giữ lại N bản gần nhất; tự xoá bản cũ.</p>
+      </article>
+
+      <article class="card">
+        <h3>Nhiều CSDL</h3>
+        <p class="mini">Hỗ trợ Microsoft SQL Server</p>
+      </article>
+
+      <article class="card">
+        <h3>Lưu trữ đa đích</h3>
+        <p class="mini">Thư mục nội bộ / Google Drive / Dropbox(tuỳ chọn).</p>
+      </article>
+    </section>
+
+    <!-- Hàng 2: 3 khối -->
+    <section class="grid" style="margin-top:12px">
+      <article class="card">
+        <h3>Mã hoá &amp; Nén</h3>
+        <p class="mini">AES‑256 + ZIP/7z; </p>
+      </article>
+
+      <article class="card">
+        <h3>Thông báo</h3>
+        <p class="mini">Thông báo email/Discord khi thành công/thất bại; log chi tiết.</p>
+      </article>
+
+      <article class="card">
+        <h3>Toàn vẹn file</h3>
+        <p class="mini">Kiểm tra tính toàn vẹn file.</p>
+      </article>
+    </section>
+
+    <!-- Khối minh hoạ như ảnh mẫu -->
+    <section class="showcase" style="margin:14px 0" aria-label="Minh hoạ tính năng">
+      <span>Minh hoạ tính năng</span>
+    </section>
+
+    <!-- Cách hoạt động -->
+    <section class="grid two" aria-label="Cách hoạt động">
+      <article class="card span-2">
+        <h3>Cách hoạt động</h3>
+        <ol class="mini" style="margin:6px 0 0 18px">
+          <li>Khai báo DB &amp; kết nối</li>
+          <li>Chọn lịch chạy &amp; đích lưu trữ</li>
+          <li>Chọn chế độ (full/diff), nén, mã hoá</li>
+          <li>Bật thông báo &amp; lưu</li>
+        </ol>
+        <p class="mini" style="margin-top:8px">* Bản dùng thử giới hạn số DB/đích lưu.</p>
+      </article>
+    </section>
+
+    <!-- Pricing -->
+    <h2 style="margin-top:12px">💳 Pricing</h2>
+    <section class="grid" aria-label="Bảng giá">
+      <article class="card">
+        <h3>Free</h3>
+        <ul class="mini">
+          <li>1 DB · backup thủ công</li>
+          <li>Nén ZIP, mã hoá</li>
+          <li>Không thông báo</li>
+        </ul>
+        <div class="price">0 ₫</div>
+        <a class="btn" href="../tai-ve.html" target="_parent" ">Tải về</a>
+      </article>
+
+      <article class="card">
+        <h3>Pro</h3>
+        <ul class="mini">
+          <li>5 DB · lịch tự động</li>
+          <li>Nén ZIP, mã hoá</li>
+		  <li>Google Drive</li>
+          <li>Thông báo email/Discord</li>
+        </ul>
+        <div class="price">490.000 ₫ / năm</div>
+        <a class="btn" href="../mua.html" target="_parent" ">Mua</a>
+      </article>
+
+      <article class="card">
+        <h3>Business</h3>
+        <ul class="mini">
+          <li>Không giới hạn DB*</li>
+          <li>Nén ZIP, mã hoá</li>
+		  <li>Google Drive/Dropbox</li>
+          <li>Thông báo email/Discord</li>
+        </ul>
+        <div class="price">1.490.000 ₫ / năm</div>
+        <a class="btn" href="../mua.html" target="_parent">Mua</a>
+      </article>
+    </section>
   </div>
 </body>
 </html>
