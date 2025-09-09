@@ -28,8 +28,8 @@
       background: radial-gradient(800px 220px at 10% 120%, rgba(76,201,240,.08), transparent 60%),
                   radial-gradient(800px 220px at 110% -20%, rgba(167,139,250,.08), transparent 60%),
                   var(--surface);
-      display: grid; place-items: center; color: var(--subtle); font-size: 12px;   padding: 8px 12px; }
-    @media (max-width: 640px){ .showcase { height: 140px;   padding: 8px 12px; } }
+      display: grid; place-items: center; color: var(--subtle); font-size: 12px; }
+    @media (max-width: 640px){ .showcase { height: 140px; } }
 
     /* Quy trình minh hoạ + icon + mũi tên nối */
     .steps{display:grid;gap:12px;margin-top:6px}
@@ -114,70 +114,13 @@
     </section>
 
     <!-- Showcase -->
-    \1<div class="showcase-graphic" style="width:100%;height:100%">
-<svg viewBox="0 0 1100 220" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Quy trình VSTOC">
-  <defs>
-    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="rgba(76,201,240,0.18)"/>
-      <stop offset="1" stop-color="rgba(167,139,250,0.12)"/>
-    </linearGradient>
-    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0.6" result="b"/>
-      <feBlend in="SourceGraphic" in2="b" mode="normal"/>
-    </filter>
-    <style>
-      .bx{fill:#1f2c3f;stroke:#6f93b8;stroke-width:2.5;rx:14;ry:14;filter:url(#soft)}
-      .t{font: 700 18px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#e6eef7}
-      .s{font: 400 14px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#b8c6d6}
-      .tag{font: 400 12px system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; fill:#9fb2c8}
-      .arrow-line{stroke:#7aa0c8;stroke-width:4;stroke-linecap:round;stroke-dasharray:12 12;animation:flow 1.8s linear infinite}
-      .arrow-head{fill:#7aa0c8}
-      @keyframes flow{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
-      @media (prefers-reduced-motion: reduce){ .arrow-line{animation:none} }
-    </style>
-  </defs>
-
-  <!-- background glow -->
-  <rect x="0" y="0" width="1100" height="220" fill="url(#glow)" opacity="0.4"/>
-
-  <!-- nodes -->
-  <g transform="translate(110,52)">
-    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
-    <text class="t" x="14" y="28">CSDL</text>
-    <text class="s" x="14" y="52">SQL Server</text>
-  </g>
-
-  <g transform="translate(394,52)">
-    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
-    <text class="t" x="14" y="28">Lịch &amp; Giữ</text>
-    <text class="s" x="14" y="52">Full/Diff · Retention</text>
-  </g>
-
-  <g transform="translate(678,52)">
-    <rect class="bx" x="0" y="0" width="230" height="110" rx="16" ry="16"/>
-    <text class="t" x="14" y="28">Nén &amp; Mã hoá</text>
-    <text class="s" x="14" y="52">AES-256 · ZIP/7z</text>
-  </g>
-
-  <g transform="translate(962,52)">
-    <rect class="bx" x="-230" y="0" width="230" height="110" rx="16" ry="16"/>
-    <text class="t" x="-216" y="28">Đích lưu</text>
-    <text class="s" x="-216" y="52">Nội bộ · Drive · Dropbox</text>
-  </g>
-
-  <!-- flow arrows -->
-  <g>
-    <line class="arrow-line" x1="354" y1="106" x2="392" y2="106"/>
-    <polygon class="arrow-head" points="392,106 382,100 382,112"/>
-    <line class="arrow-line" x1="638" y1="106" x2="676" y2="106"/>
-    <polygon class="arrow-head" points="676,106 666,100 666,112"/>
-    <line class="arrow-line" x1="922" y1="106" x2="960" y2="106"/>
-    <polygon class="arrow-head" points="960,106 950,100 950,112"/>
-  </g>
-
-  <text class="tag" x="550" y="200" text-anchor="middle">VSTOC — Cài một lần • sao lưu tự động</text>
-</svg>
-</div>\3
+    <section class="showcase" style="margin:14px 0" aria-label="Minh hoạ">
+<picture style="display:block;width:100%;height:100%">
+  <source srcset="../assets/feature-showcase@2x.png 2x, ../assets/feature-showcase.png 1x" type="image/png">
+  <img src="../assets/feature-showcase.png" alt="Quy trình VSTOC: Kết nối CSDL → Lập Lịch → Nén & Mã hoá → Đích lưu (Nội bộ/Drive/Dropbox)"
+       style="width:100%;height:100%;object-fit: contain; object-position: center;border-radius:12px;display:block" loading="lazy" decoding="async">
+</picture>
+</section>
 
     <!-- Cách hoạt động -->
     <section class="grid two" aria-label="Cách hoạt động">
