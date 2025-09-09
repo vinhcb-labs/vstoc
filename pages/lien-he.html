@@ -3,13 +3,221 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../assets/style.css">
-  <title>VSTOC</title>
+  <title>VSTOC · Liên hệ</title>
+  <meta name="description" content="Trang Liên hệ VSTOC — nhận tư vấn giải pháp sao lưu SQL, hỗ trợ kỹ thuật và hợp tác." />
+  <link rel="icon" href="vstoc.ico">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { --gap: 1rem; --radius: 14px; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .hero { display: grid; gap: var(--gap); grid-template-columns: 1.2fr 0.8fr; align-items: start; }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+    .card { background: #fff; border: 1px solid #eaeaea; border-radius: var(--radius); padding: 20px; box-shadow: 0 6px 22px rgba(0,0,0,.04); }
+    .title { font-size: clamp(24px, 3vw, 34px); margin: 4px 0 6px; }
+    .subtle { color: #666; margin-top: 0 }
+    form .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+    @media (max-width: 600px) { form .row { grid-template-columns: 1fr; } }
+    label { font-weight: 600; font-size: 14px; }
+    input, textarea, select { width: 100%; padding: 12px 14px; border: 1px solid #d7d7d7; border-radius: 10px; outline: none; }
+    input:focus, textarea:focus { border-color: #8ab4f8; box-shadow: 0 0 0 3px rgba(138,180,248,.25); }
+    textarea { min-height: 140px; resize: vertical; }
+    .actions { display: flex; gap: 10px; align-items: center; }
+    button[type="submit"] { padding: 12px 18px; border-radius: 12px; border: 0; cursor: pointer; background: #111827; color: #fff; font-weight: 600; }
+    .muted { font-size: 13px; color: #666; }
+    .info-list { display: grid; gap: var(--gap); }
+    .info-item { display: flex; gap: 12px; align-items: start; }
+    .info-item .ic { width: 36px; height: 36px; border-radius: 10px; background: #f3f4f6; display: grid; place-items: center; font-weight: 700; }
+    .map { height: 280px; border-radius: var(--radius); overflow: hidden; border: 1px solid #eaeaea; }
+    .badge { display:inline-block; padding:2px 8px; font-size:12px; border-radius: 999px; background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; }
+    .required::after { content:" *"; color:#ef4444; }
+    .footnote { font-size:12px; color:#6b7280; }
+  </style>
 </head>
 <body>
-  <div class="doc">
-<div style="padding:18px"><h3>Liên hệ</h3></div>
+  <main class="wrap">
+    <header>
+      <span class="badge">Liên hệ</span>
+      <h1 class="title">Trò chuyện với đội ngũ VSTOC</h1>
+      <p class="subtle">Bạn cần demo, báo giá bản quyền, hay hỗ trợ kỹ thuật cho giải pháp sao lưu SQL? Điền biểu mẫu hoặc kết nối trực tiếp qua email/điện thoại bên cạnh.</p>
+    </header>
 
-  </div>
+    <section class="hero" aria-label="Kênh liên hệ VSTOC">
+      <!-- FORM -->
+      <div class="card">
+        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbzYaEnzUKfXEYL0n4XNcq2--Ms0k01QxPdakNwS1vlfxmnE6WQOgAuT0J8gF64xVcdA/exec" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Liên hệ mới từ website VSTOC">
+          <input type="hidden" name="_gotcha" id="honeypot" value="">
+          <input type="hidden" name="ua" id="ua">
+          <input type="hidden" name="referer" id="ref">
+
+          <div class="row">
+            <div>
+              <label for="name" class="required">Họ & Tên</label>
+              <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
+            </div>
+            <div>
+              <label for="email" class="required">Email</label>
+              <input id="email" name="email" type="email" placeholder="ban@congty.com" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: var(--gap)">
+            <div>
+              <label for="phone">Số điện thoại</label>
+              <input id="phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel">
+            </div>
+            <div>
+              <label for="company">Công ty/đơn vị</label>
+              <input id="company" name="company" type="text" placeholder="Công ty ABC" autocomplete="organization">
+            </div>
+          </div>
+
+          <div style="margin-top: var(--gap)">
+            <label for="topic">Chủ đề</label>
+            <select id="topic" name="topic">
+              <option value="support">Hỗ trợ kỹ thuật</option>
+              <option value="license">Báo giá/License</option>
+              <option value="demo">Yêu cầu demo</option>
+              <option value="partnership">Hợp tác</option>
+              <option value="other" selected>Khác</option>
+            </select>
+          </div>
+
+          <div style="margin-top: var(--gap)">
+            <label for="message" class="required">Nội dung</label>
+            <textarea id="message" name="message" placeholder="Mô tả ngắn gọn nhu cầu hoặc vấn đề bạn gặp..." required></textarea>
+          </div>
+
+          <div style="margin-top: var(--gap)">
+            <label style="display:flex; gap:8px; align-items:flex-start">
+              <input type="checkbox" id="agree" required>
+              <span class="muted">Tôi đồng ý với <a href="dieu-khoan.html" target="_blank" rel="noopener">Điều khoản</a> và đã đọc <a href="quyen-rieng-tu.html" target="_blank" rel="noopener">Quyền riêng tư</a>.</span>
+            </label>
+          </div>
+
+          <div class="actions" style="margin-top: calc(var(--gap) + 4px)">
+            <button type="submit" id="submitBtn">Gửi yêu cầu</button>
+            <span id="formStatus" class="muted">Thời gian phản hồi trung bình: 1–2 ngày làm việc.</span>
+          </div>
+        </form>
+        <p class="footnote" style="margin-top:10px">Nếu không gửi được, vui lòng email trực tiếp: <a href="mailto:vinhcb.path@gmail.com">vinhcb.path@gmail.com</a>.</p>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <aside class="card" role="complementary">
+        <div class="info-list">
+          <div class="info-item">
+            <div class="ic">✉</div>
+            <div>
+              <div><strong>Email</strong></div>
+              <div><a href="mailto:vinhcb.path@gmail.com">vinhcb.path@gmail.com</a></div>
+              <div class="muted">Ưu tiên kênh email để theo dõi SLA.</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="ic">☎</div>
+            <div>
+              <div><strong>Điện thoại</strong></div>
+              <div><a href="tel:+8490xxxxxxx">+84 90 xxx xxxx</a></div>
+              <div class="muted">Giờ hỗ trợ: 09:00–17:30 (T2–T6, GMT+7).</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="ic">💬</div>
+            <div>
+              <div><strong>Zalo</strong></div>
+              <div><a href="https://zalo.me/xxxxxxxxx" target="_blank" rel="noopener">Nhắn Zalo</a></div>
+              <div class="muted">Phản hồi nhanh các câu hỏi ngắn.</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="ic">📍</div>
+            <div>
+              <div><strong>Địa chỉ</strong></div>
+              <div>TP. Hồ Chí Minh, Việt Nam</div>
+              <div class="muted">Gặp trực tiếp theo lịch hẹn.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map" style="margin-top: 14px">
+          <iframe
+            title="Vị trí VSTOC (tham khảo)"
+            src="https://www.google.com/maps?q=Ho%20Chi%20Minh%20City&output=embed"
+            width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card" style="margin-top: 18px">
+      <h2 style="margin-top:0">Câu hỏi thường gặp</h2>
+      <details>
+        <summary>Thời gian phản hồi của VSTOC là bao lâu?</summary>
+        <p>Thông thường 1–2 ngày làm việc. Thắc mắc kỹ thuật khẩn, vui lòng ghi rõ mức độ ưu tiên trong chủ đề.</p>
+      </details>
+      <details>
+        <summary>Tôi có thể yêu cầu demo/POC không?</summary>
+        <p>Được. Vui lòng chọn “Yêu cầu demo” trong biểu mẫu và mô tả môi trường CSDL (SQL Server phiên bản, kích thước, tần suất sao lưu) để chúng tôi sắp lịch.</p>
+      </details>
+      <details>
+        <summary>Chính sách bảo mật dữ liệu gửi qua form?</summary>
+        <p>Thông tin bạn cung cấp chỉ dùng để liên hệ và hỗ trợ theo <a href="quyen-rieng-tu.html">Chính sách Quyền riêng tư</a>. Không chia sẻ cho bên thứ ba ngoài các nhà cung cấp dịch vụ cần thiết.</p>
+      </details>
+    </section>
+  </main>
+
+  <!-- JSON-LD Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "VSTOC",
+    "url": "https://vstoc.app",
+    "logo": "https://vstoc.app/vstoc.png",
+    "contactPoint": [{ "@type": "ContactPoint", "contactType": "customer support", "email": "vinhcb.path@gmail.com", "telephone": "+84-90-000-0000", "areaServed": "VN", "availableLanguage": ["vi","en"] }]
+  }
+  </script>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    const honey = document.getElementById('honeypot');
+    const btn = document.getElementById('submitBtn');
+    let readyToken = false;
+
+    window.addEventListener('load', () => {
+      document.getElementById('ua').value  = navigator.userAgent;
+      document.getElementById('ref').value = document.referrer || location.href;
+      setTimeout(() => readyToken = true, 800);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (honey.value) return; // bot
+      if (!readyToken) { statusEl.textContent = 'Đang kiểm tra... thử lại sau 1s.'; return; }
+      if (!form.reportValidity()) return;
+
+      btn.disabled = true;
+      statusEl.textContent = 'Đang gửi...';
+
+      try {
+        const resp = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        if (resp && resp.ok) {
+          form.reset();
+          statusEl.textContent = 'Đã gửi! Chúng tôi sẽ phản hồi sớm nhất.';
+        } else {
+          statusEl.textContent = 'Không gửi được lúc này. Vui lòng email: vinhcb.path@gmail.com';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Lỗi mạng. Vui lòng thử lại hoặc gửi email.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
