@@ -158,7 +158,7 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
 .doc ul, .doc ol { padding-left: 22px; }
 .doc .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
 .doc .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .doc .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .doc .grid.two { grid-template-columns: 1fr; }
 }
@@ -174,8 +174,8 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
 
 /* === Contact page (VSTOC) === */
 .page-contact .wrap { max-width: 1100px; margin: 0 auto; padding: 16px 16px 24px; }
-.page-contact .hero { display: grid; gap: 1rem; grid-template-columns: minmax(0,1fr) minmax(0,420px); align-items: start; }
-@media (max-width: 900px){ .page-contact .hero { grid-template-columns: 1fr; } }
+.page-contact .hero { display: grid; gap: 1rem; grid-template-columns:  60% 40% ; align-items: start; }
+@media (max-width: 1024px){ .page-contact .hero { grid-template-columns:  60% 40% ; } }
 .page-contact .card { background: var(--surface); border: 1px solid var(--muted); border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.15); }
 .page-contact input, .page-contact textarea, .page-contact select { background: var(--muted); color: var(--text); border: 1px solid var(--muted); }
 .page-contact input::placeholder, .page-contact textarea::placeholder { color: var(--subtle); }
@@ -183,3 +183,15 @@ footer { margin-top: 20px; color: var(--subtle); font-size: 12px; }
 .page-contact .map { min-height: 260px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; overflow: hidden; }
 .page-contact .consent .muted a { color: var(--primary); text-decoration: underline; }
 .page-contact .actions .btn { font-weight: 600; } /* reuse global .btn color (var(--primary)) */
+
+.page-contact .hero > * { min-width: 0; }
+
+
+/* === Contact: form grid & fixes === */
+.page-contact .hero > .card, .page-contact .hero > aside { width: 100%; }
+.page-contact .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px){ .page-contact .form-grid { grid-template-columns: 1fr; } }
+.page-contact .group { display: flex; flex-direction: column; gap: 6px; }
+.page-contact label { font-weight: 600; font-size: 14px; }
+.page-contact input, .page-contact select, .page-contact textarea { width: 100%; }
+.page-contact .actions { display: flex; gap: 10px; align-items: center; }

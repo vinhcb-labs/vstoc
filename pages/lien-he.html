@@ -19,51 +19,33 @@
     <section class="hero" aria-label="Kênh liên hệ VSTOC">
       <!-- FORM -->
       <div class="card">
-        <form id="contactForm" action="https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec" method="POST" novalidate>
+        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbzYaEnzUKfXEYL0n4XNcq2--Ms0k01QxPdakNwS1vlfxmnE6WQOgAuT0J8gF64xVcdA/exec" method="POST" novalidate>
           <input type="hidden" name="_subject" value="Liên hệ mới từ website VSTOC">
           <input type="hidden" name="_gotcha" id="honeypot" value="">
           <input type="hidden" name="ua" id="ua">
           <input type="hidden" name="referer" id="ref">
 
-          <div class="row">
-            <div style="flex:1 1 200px">
-              <label for="name">Họ & Tên</label>
-              <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
-            </div>
-            <div style="flex:1 1 200px">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="ban@congty.com" autocomplete="email" required>
-            </div>
-          </div>
+          <div class="form-grid">
+  <div class="group"><label for="name">Họ & Tên</label><input id="name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required></div>
+  <div class="group"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="ban@congty.com" autocomplete="email" required></div>
+</div>
 
-          <div class="row">
-            <div style="flex:1 1 200px">
-              <label for="phone">Số điện thoại</label>
-              <input id="phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel">
-            </div>
-            <div style="flex:1 1 200px">
-              <label for="company">Công ty/đơn vị</label>
-              <input id="company" name="company" type="text" placeholder="Công ty ABC" autocomplete="organization">
-            </div>
-          </div>
+          <div class="form-grid">
+  <div class="group"><label for="phone">Số điện thoại</label><input id="phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel"></div>
+  <div class="group"><label for="company">Công ty/đơn vị</label><input id="company" name="company" type="text" placeholder="Công ty ABC" autocomplete="organization"></div>
+</div>
 
-          <div class="row">
-            <div style="flex:1 1 200px">
-              <label for="topic">Chủ đề</label>
-              <select id="topic" name="topic">
-                <option value="support">Hỗ trợ kỹ thuật</option>
-                <option value="license">Báo giá/License</option>
-                <option value="demo">Yêu cầu demo</option>
-                <option value="partnership">Hợp tác</option>
-                <option value="other" selected>Khác</option>
-              </select>
-            </div>
-          </div>
+          <div class="group"><label for="topic">Chủ đề</label>
+<select id="topic" name="topic">
+  <option value="support">Hỗ trợ kỹ thuật</option>
+  <option value="license">Báo giá/License</option>
+  <option value="demo">Yêu cầu demo</option>
+  <option value="partnership">Hợp tác</option>
+  <option value="other" selected>Khác</option>
+</select></div>
 
-          <div class="row" style="display:block">
-            <label for="message">Nội dung</label>
-            <textarea id="message" name="message" placeholder="Mô tả ngắn gọn nhu cầu hoặc vấn đề bạn gặp..." required></textarea>
-          </div>
+          <div class="group"><label for="message">Nội dung</label>
+<textarea id="message" name="message" placeholder="Mô tả ngắn gọn nhu cầu hoặc vấn đề bạn gặp..." required></textarea></div>
 
           <div class="consent" style="margin-top: 10px; display:flex; gap:10px; align-items:flex-start;">
             <input type="checkbox" id="agree" required>
