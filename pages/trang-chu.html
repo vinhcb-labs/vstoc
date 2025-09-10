@@ -4,14 +4,128 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../assets/style.css">
-  <title>VSTOC</title>
+  <link rel="icon" href="../assets/vstoc.ico">
+  <title>VSTOC · Trang chủ</title>
+  <style>
+    /* ===== Home hero (layout giống mẫu) ===== */
+    .home { max-width: 1100px; margin: 0 auto; padding: 18px; }
+    .eyebrow { letter-spacing: .12em; font-weight: 700; color: var(--subtle); }
+    .headline { font-size: clamp(22px, 3vw, 34px); font-weight: 800; line-height: 1.2; margin: 4px 0 10px; }
+    .headline .hl { color: var(--primary); }
+    .sub { color: var(--subtle); max-width: 72ch; }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center; margin-top: 14px; }
+    @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
 
-<link rel="icon" href="../assets/vstoc.ico">
+    .cta { display:flex; gap:10px; margin-top:14px }
+    .cta .btn { font-weight: 700; }
+    .muted { color: var(--subtle); }
+
+    /* ===== Radial illustration (inline SVG container) ===== */
+    .illu{
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: radial-gradient(900px 300px at 10% 120%, rgba(76,201,240,.08), transparent 60%),
+                  radial-gradient(900px 300px at 110% -20%, rgba(167,139,250,.08), transparent 60%),
+                  var(--surface);
+      border: 1px solid var(--muted);
+      border-radius: 14px;
+      display: grid; place-items: center;
+    }
+    .illusvg{ width: 92%; height: auto; display:block; }
+    .cap { text-align:center; font-size:12px; color: var(--subtle); margin-top:6px }
+
+    /* ===== Features strip (tóm tắt từ tinh-nang) ===== */
+    .featgrid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px; margin-top: 18px; }
+    @media (max-width: 960px){ .featgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 640px){ .featgrid{ grid-template-columns: 1fr; } }
+    .card ul{ margin:8px 0 0 18px }
+
+  </style>
 </head>
 <body>
-  <div class="doc">
-<div style="padding:18px"><h2>Đang xây dựng</h2>
+  <main class="home">
+    <div class="eyebrow">SAO LƯU SQL SERVER NGOẠI TUYẾN</div>
+    <h1 class="headline">
+      Dễ dàng <span class="hl">OFF‑SITE</span> và <span class="hl">AN TOÀN</span> —
+      nén &amp; mã hoá, lập lịch tự động, lưu trữ đa đích.
+    </h1>
+    <p class="sub">
+      VSTOC sao lưu cơ sở dữ liệu của bạn lên <b>Google Drive</b>, <b>Dropbox</b>, và
+      <b>thư mục nội bộ/NAS</b>. Hỗ trợ <b>AES‑256 + ZIP/7z</b>, giữ lại <em>N</em> bản gần nhất,
+      kiểm tra <b>tính toàn vẹn</b> và gửi <b>thông báo Email/Discord</b> — giúp bạn tập trung cho công việc.
+    </p>
 
-  </div>
+    <section class="hero" aria-label="Hero">
+      <!-- Illustration -->
+      <figure class="illu" aria-labelledby="illuCap">
+        <!-- Simple inline SVG: center DB + các dịch vụ xung quanh (giống tinh thần của hình mẫu) -->
+        <svg class="illusvg" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sao lưu đến Drive, Dropbox và thư mục nội bộ">
+          <!-- glow -->
+          <defs>
+            <radialGradient id="g" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="rgba(76,201,240,.35)"/>
+              <stop offset="100%" stop-color="rgba(76,201,240,0)"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="300" cy="210" rx="260" ry="150" fill="url(#g)" opacity=".35"/>
+          <!-- center DB cylinder -->
+          <g transform="translate(300,210)">
+            <ellipse cx="0" cy="-35" rx="48" ry="16" fill="#0ea5e9" opacity=".85"/>
+            <rect x="-48" y="-35" width="96" height="80" rx="10" fill="#22d3ee" opacity=".9"/>
+            <ellipse cx="0" cy="45" rx="48" ry="16" fill="#0891b2"/>
+            <!-- arrow down -->
+            <path d="M0,-70 v-22 m-12,18 l12,12 l12-12" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- ring connectors -->
+          <g stroke="rgba(255,255,255,.18)" stroke-width="2">
+            <line x1="300" y1="210" x2="160" y2="115"/>
+            <line x1="300" y1="210" x2="448" y2="125"/>
+            <line x1="300" y1="210" x2="470" y2="215"/>
+            <line x1="300" y1="210" x2="130" y2="230"/>
+            <line x1="300" y1="210" x2="210" y2="330"/>
+            <line x1="300" y1="210" x2="390" y2="330"/>
+          </g>
+
+          <!-- service bubbles -->
+          <g font-family="Montserrat, Roboto, Arial" font-weight="700" text-anchor="middle">
+            <!-- Dropbox -->
+            <circle cx="160" cy="115" r="22" fill="#2563eb"/><text x="160" y="121" font-size="14" fill="#fff">Dbx</text>
+            <!-- Drive -->
+            <circle cx="448" cy="125" r="22" fill="#16a34a"/><text x="448" y="131" font-size="14" fill="#fff">Drive</text>
+            <!-- Azure (ví dụ đích nội bộ / NAS) -->
+            <circle cx="470" cy="215" r="22" fill="#0ea5e9"/><text x="470" y="221" font-size="14" fill="#fff">NAS</text>
+            <!-- Local -->
+            <circle cx="130" cy="230" r="22" fill="#0891b2"/><text x="130" y="236" font-size="13" fill="#fff">Local</text>
+            <!-- Email -->
+            <circle cx="210" cy="330" r="22" fill="#9333ea"/><text x="210" y="336" font-size="13" fill="#fff">@</text>
+            <!-- Discord -->
+            <circle cx="390" cy="330" r="22" fill="#475569"/><text x="390" y="336" font-size="12" fill="#fff">♾</text>
+          </g>
+        </svg>
+        <figcaption id="illuCap" class="cap">Sao lưu → Nén &amp; mã hoá → Lưu trữ đa đích</figcaption>
+      </figure>
+
+      <!-- Copy -->
+      <div>
+        <h3 style="margin:0 0 8px">Vì sao chọn VSTOC?</h3>
+        <ul class="mini" style="margin: 0 0 10px 18px">
+          <li><b>Lập lịch &amp; lưu giữ</b>: chạy theo giờ/ngày/tuần, giữ lại <em>N</em> bản, tự xoá bản cũ.</li>
+          <li><b>Mã hoá &amp; nén</b>: AES‑256 + ZIP/7z, đặt mật khẩu cho file.</li>
+          <li><b>Lưu trữ đa đích</b>: Nội bộ/NAS, Google Drive, Dropbox.</li>
+          <li><b>Thông báo</b>: Email / Discord, có log chi tiết.</li>
+          <li><b>Tính toàn vẹn</b>: kiểm tra checksum sau khi nén &amp; upload.</li>
+        </ul>
+        <div class="cta">
+          <a class="btn" href="../#tai-ve" onclick="if(parent&&parent!==window){parent.location.hash='#tai-ve';return false;}" target="_parent" rel="noopener">⬇️ Tải về</a>
+          <a class="btn secondary" href="../#mua" onclick="if(parent&&parent!==window){parent.location.hash='#mua';return false;}" target="_parent" rel="noopener">🛒 Mua</a>
+        </div>
+        <p class="muted" style="margin-top:8px">* Bản dùng thử có thể giới hạn số DB/đích lưu.</p>
+      </div>
+    </section>
+
+    <!-- Tính năng chính (tóm tắt từ tinh-nang.html) -->
+    
+  </main>
 </body>
 </html>
