@@ -12,7 +12,7 @@
     .headline{ font-size: clamp(22px,3.2vw,36px); font-weight:800; line-height:1.25; margin:0 0 10px; }
     .headline .hl{ color:var(--primary); }
     .lead{ color:var(--subtle); max-width:72ch; margin:0 0 10px; }
-    .hero2{ display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; align-items:start; }
+    .hero2{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:18px; align-items:start; }
     @media (max-width: 920px){ .hero2{ grid-template-columns:1fr; } }
     .cta{ display:flex; gap:10px; margin-top:10px; }
     .cta .btn{ font-weight:700; }
