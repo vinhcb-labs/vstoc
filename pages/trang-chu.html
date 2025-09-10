@@ -20,8 +20,8 @@
     .illu{ background: radial-gradient(900px 300px at 10% 120%, rgba(76,201,240,.08), transparent 60%), 
                         radial-gradient(900px 300px at 110% -20%, rgba(167,139,250,.08), transparent 60%),
                         var(--surface);
-           border:1px solid var(--muted); border-radius:14px; padding:10px; }
-    .illusvg{ width:100%; height:auto; display:block; }
+           border:1px solid var(--muted); border-radius:14px; overflow:hidden; box-shadow: 0 10px 24px rgba(0,0,0,.25); aspect-ratio: 35 / 18; padding:10px; display:grid; place-items:center; }
+    .illusvg{ width:100%; height:auto; display:block;  width:100%; height:100%; max-width:100%; }
 
     .feature-list{ background: var(--surface); border:1px solid var(--muted); border-radius:14px; padding:14px; }
     .feature-list h3{ margin:0 0 8px; }
@@ -36,12 +36,12 @@
 <body>
   <div class="wrap">
     <p class="eyebrow"></p>
-    <h1 class="headline"><span class="hl">Sao lưu ngoại tuyến dễ dàng OFF-SITE và AN TOÀN.</span> </h1>
+    <h1 class="headline"><span class="hl"> </span> </h1>
     <p class="lead"></p>
 
     <section class="hero2" aria-label="Phần giới thiệu">
       <div class="illu">
-        <svg class="illusvg" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Minh hoạ sao lưu đa đích">
+        <svg class="illusvg" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Minh hoạ sao lưu đa đích" preserveAspectRatio="xMidYMid meet">
           <defs>
             <radialGradient id="bg" cx="50%" cy="50%" r="60%">
               <stop offset="0" stop-color="#4cc9f0" stop-opacity=".35"/>
